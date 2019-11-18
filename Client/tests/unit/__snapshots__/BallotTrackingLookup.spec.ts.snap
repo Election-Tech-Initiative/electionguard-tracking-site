@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BallotTrackingLookup.vue renders 1`] = `
+<div
+  id="lookup"
+  onclick=""
+>
+  <label
+    class="label"
+  >
+    trackerSearchLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <div
+      id="autosuggest"
+    >
+      <input
+        aria-activedescendant=""
+        aria-autocomplete="list"
+        aria-expanded="false"
+        aria-haspopup="false"
+        aria-owns="autosuggest__results"
+        autocomplete="off"
+        class="input"
+        id="autosuggest__input"
+        placeholder="trackerSearchInputPlaceholder"
+        role="combobox"
+        type="text"
+      />
+       
+      <div
+        class="autosuggest__results-container"
+      >
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BallotTrackingLookup.vue renders with a suggestion: with a suggestion 1`] = `
+<div
+  id="lookup"
+  onclick=""
+>
+  <label
+    class="label"
+  >
+    trackerSearchLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <div
+      id="autosuggest"
+    >
+      <input
+        aria-activedescendant=""
+        aria-autocomplete="list"
+        aria-expanded="true"
+        aria-haspopup="true"
+        aria-owns="autosuggest__results"
+        autocomplete="off"
+        class="autosuggest__input--open input"
+        id="autosuggest__input"
+        placeholder="trackerSearchInputPlaceholder"
+        role="combobox"
+        type="text"
+      />
+       
+      <div
+        class="autosuggest__results-container"
+      >
+        <div
+          aria-labelledby="autosuggest"
+          class="autosuggest__results"
+        >
+          <h6
+            class="subtitle is-6"
+          >
+            trackerSearchAutocompleteLabel
+          </h6>
+           
+          <ul
+            aria-labelledby="autosuggest"
+            role="listbox"
+          >
+            <li
+              class="autosuggest__results-item"
+              data-section-name="default"
+              data-suggestion-index="0"
+              id="autosuggest__results-item--0"
+              role="option"
+            >
+              <div>
+                <span
+                  class="has-text-weight-semibold"
+                >
+                  mocked
+                </span>
+                <span>
+                  TrackingId
+                </span>
+              </div>
+            </li>
+          </ul>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BallotTrackingLookup.vue renders with not found: with not found 1`] = `
+<div
+  id="lookup"
+  onclick=""
+>
+  <label
+    class="label"
+  >
+    trackerSearchLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <div
+      id="autosuggest"
+    >
+      <input
+        aria-activedescendant=""
+        aria-autocomplete="list"
+        aria-expanded="true"
+        aria-haspopup="true"
+        aria-owns="autosuggest__results"
+        autocomplete="off"
+        class="autosuggest__input--open input"
+        id="autosuggest__input"
+        placeholder="trackerSearchInputPlaceholder"
+        role="combobox"
+        type="text"
+      />
+       
+      <div
+        class="autosuggest__results-container"
+      >
+        <div
+          aria-labelledby="autosuggest"
+          class="autosuggest__results"
+        >
+          <h6
+            class="subtitle is-6"
+          >
+            trackerSearchAutocompleteLabel
+          </h6>
+           
+          <ul
+            aria-labelledby="autosuggest"
+            role="listbox"
+          >
+            <li
+              class="autosuggest__results-item"
+              data-section-name="default"
+              data-suggestion-index="0"
+              id="autosuggest__results-item--0"
+              role="option"
+            >
+              <div>
+                <span
+                  class="has-text-weight-semibold"
+                >
+                  trackerSearchNotFound
+                </span>
+                <span>
+                  
+                </span>
+              </div>
+            </li>
+          </ul>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
