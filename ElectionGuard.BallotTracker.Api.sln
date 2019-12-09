@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectionGuard.BallotTracker.Functions", "ElectionGuard.BallotTracker.Functions\ElectionGuard.BallotTracker.Functions.csproj", "{5CFFF276-EA62-4E6E-A305-61B876C915D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionGuard.BallotTracker.Functions.Tests", "ElectionGuard.BallotTracker.Functions.Tests\ElectionGuard.BallotTracker.Functions.Tests.csproj", "{E9D6226D-6E25-4330-B09F-1BDF724266C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CFFF276-EA62-4E6E-A305-61B876C915D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFFF276-EA62-4E6E-A305-61B876C915D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFFF276-EA62-4E6E-A305-61B876C915D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFFF276-EA62-4E6E-A305-61B876C915D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D6226D-6E25-4330-B09F-1BDF724266C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D6226D-6E25-4330-B09F-1BDF724266C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D6226D-6E25-4330-B09F-1BDF724266C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D6226D-6E25-4330-B09F-1BDF724266C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F450B88A-47FE-4FD2-B2E3-9DB9BE6E6319}
+	EndGlobalSection
+EndGlobal

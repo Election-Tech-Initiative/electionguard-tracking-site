@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BallotTrackingQrScanner.vue renders 1`] = `
+<div
+  id="qr"
+>
+  <label
+    class="label"
+  >
+    scanQrCodeLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <qrcodecapture-stub
+      style="display: none;"
+    />
+     
+    <button
+      class="button is-large is-success"
+    >
+      
+      scanQrCode
+    
+    </button>
+  </div>
+   
+  <p
+    class="help is-danger is-hidden"
+  >
+    <i
+      class="fas fa-exclamation-triangle"
+    />
+     
+  </p>
+   
+  <!---->
+</div>
+`;
+
+exports[`BallotTrackingQrScanner.vue renders error when detection fails: with error when detection fails 1`] = `
+<div
+  id="qr"
+>
+  <label
+    class="label"
+  >
+    scanQrCodeLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <qrcodecapture-stub
+      style="display: none;"
+    />
+     
+    <button
+      class="button is-large is-success"
+    >
+      
+      scanQrCode
+    
+    </button>
+  </div>
+   
+  <p
+    class="help is-danger"
+  >
+    <i
+      class="fas fa-exclamation-triangle"
+    />
+     qrError
+  </p>
+   
+  <!---->
+</div>
+`;
+
+exports[`BallotTrackingQrScanner.vue renders error when result does't start with \${window.location.origin}/track/: with error when result invalid 1`] = `
+<div
+  id="qr"
+>
+  <label
+    class="label"
+  >
+    scanQrCodeLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <qrcodecapture-stub
+      style="display: none;"
+    />
+     
+    <button
+      class="button is-large is-success"
+    >
+      
+      scanQrCode
+    
+    </button>
+  </div>
+   
+  <p
+    class="help is-danger"
+  >
+    <i
+      class="fas fa-exclamation-triangle"
+    />
+     qrError
+  </p>
+   
+  <!---->
+</div>
+`;
+
+exports[`BallotTrackingQrScanner.vue renders with openModal: with openModal 1`] = `
+<div
+  id="qr"
+>
+  <label
+    class="label"
+  >
+    scanQrCodeLabel
+  </label>
+   
+  <div
+    class="control"
+  >
+    <qrcodecapture-stub
+      style="display: none;"
+    />
+     
+    <button
+      class="button is-large is-loading is-info"
+      disabled="disabled"
+    >
+      
+      scanQrCode
+    
+    </button>
+  </div>
+   
+  <p
+    class="help is-danger is-hidden"
+  >
+    <i
+      class="fas fa-exclamation-triangle"
+    />
+     
+  </p>
+   
+  <div
+    class="modal is-active"
+  >
+    <div
+      class="modal-background"
+    />
+     
+    <div
+      class="modal-content"
+    >
+      <div
+        class="box has-text-centered"
+      >
+        <button
+          aria-label="close"
+          class="delete is-pulled-right"
+        />
+         
+        <h6
+          class="title is-5"
+        >
+          scanQrCode
+        </h6>
+         
+        <h6
+          class="subtitle is-7"
+        >
+          scanQrCodeHelpMessage
+        </h6>
+         
+        <div
+          class="content"
+        >
+          <loadingindicator-stub />
+           
+          <qrcodestream-stub />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFoundPage.vue renders 1`] = `
+<div
+  class="section"
+>
+  <div
+    class="container"
+  >
+    <div
+      class="content is-size-3"
+    >
+      <i18n-stub
+        path="notFoundMessage"
+      >
+        <span
+          class="is-inline-block has-text-weight-bold"
+        >
+          notFound
+        </span>
+      </i18n-stub>
+    </div>
+     
+    <div
+      class="content"
+    >
+      <a
+        class="button is-dark"
+      >
+        returnHome
+      </a>
+    </div>
+  </div>
+</div>
+`;
