@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BallotTracking.vue renders 1`] = `
+<preelectionguard-stub>
+  <div
+    class="section"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      >
+        
+        ballotTrackingInfoMessage
+      
+      </div>
+       
+      <div
+        class="component-content"
+      >
+        <ballottrackinglookup-stub />
+      </div>
+       
+      <div
+        class="component-content"
+      >
+        <ballottrackingqrscanner-stub />
+      </div>
+    </div>
+     
+    <ballottrackingmodal-stub />
+  </div>
+</preelectionguard-stub>
+`;

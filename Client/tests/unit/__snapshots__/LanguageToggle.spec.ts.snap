@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageToggle.vue renders 1`] = `
+<div
+  class="language-toggle"
+>
+  <span
+    class="language-label"
+  >
+    
+        languageLabel
+    
+  </span>
+   
+  <div
+    class="locale-changer select is-small"
+  >
+    <select>
+      <option
+        value="en"
+      >
+        English
+      </option>
+      <option
+        value="es"
+      >
+        Spanish
+      </option>
+    </select>
+  </div>
+</div>
+`;

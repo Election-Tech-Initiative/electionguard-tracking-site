@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ElectionResults.vue renders with ElectionResultsTally after async fetch: withElectionResultsTally 1`] = `
+<preelectionguard-stub>
+  <div
+    class="section"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      />
+    </div>
+  </div>
+   
+  <div
+    class="section results"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      >
+        <electionresultstally-stub
+          electionresults="[object Object]"
+        />
+      </div>
+    </div>
+  </div>
+</preelectionguard-stub>
+`;
+
+exports[`ElectionResults.vue renders with LoadingIndicator: withLoadingIndicator 1`] = `
+<preelectionguard-stub>
+  <div
+    class="section"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      />
+    </div>
+  </div>
+   
+  <loadingindicator-stub />
+</preelectionguard-stub>
+`;

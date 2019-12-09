@@ -1,0 +1,15 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Windows-style newlines with a newline ending every file
+[*]
+end_of_line = crlf
+insert_final_newline = true
+
+# Settings for js, ts, vue, scss and json
+[*.{js,json,scss,ts,vue}]
+charset = utf-8
+indent_style = space
+indent_size = 2

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ElectionResultsTally.vue renders with first class: with first class 1`] = `
+<div
+  class="bar-wrapper first"
+  id="bar"
+>
+  <div
+    class="bar"
+    style="width: 50%;"
+  />
+   
+  <div
+    class="bar-text"
+    style="min-width: 50%;"
+  >
+    5 (50%)
+  </div>
+</div>
+`;
+
+exports[`ElectionResultsTally.vue renders without first class: without first class 1`] = `
+<div
+  class="bar-wrapper"
+  id="bar"
+>
+  <div
+    class="bar"
+    style="width: 50%;"
+  />
+   
+  <div
+    class="bar-text"
+    style="min-width: 50%;"
+  >
+    5 (50%)
+  </div>
+</div>
+`;

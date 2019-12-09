@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ElectionGuard.BallotTracker.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --useHttps --cert ../../../../devops/devcert/localhost-bt-dev.pfx --password btdevcert"
+    }
+  }
+}

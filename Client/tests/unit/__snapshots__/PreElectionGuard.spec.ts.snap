@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PreElectionGuard.vue renders preElectionMessage when election not closed: election not closed 1`] = `
+<div>
+  <div
+    class="section"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      >
+        <p>
+          
+              preElectionMessage
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PreElectionGuard.vue renders slot div when election is closed: election is closed 1`] = `
+<div>
+  <div />
+</div>
+`;
