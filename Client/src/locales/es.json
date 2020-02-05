@@ -37,7 +37,7 @@
     "ballotDiscardedTopMessage": "{location} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
     "ballotDiscardedBottomMessage": "{0} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
     "ballotLocationLabel": "Ubicación:",
-    "ballotVoteTimeLabel": "Tiempo de lanzamiento de la boleta (aproximado):",
+    "ballotVoteTimeLabel": "Fecha de lanzamiento de la boleta:",
     "ballotClickHere": "haga clic aquí",
     "close": "Cerrar"
 }

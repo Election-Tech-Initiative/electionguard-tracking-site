@@ -114,7 +114,7 @@ export default class BallotTrackingModal extends Vue {
       const roundedMins = Math.round(minutes / this.MinuteInterval) * this.MinuteInterval;
       const approximateDate = castTime.minutes(roundedMins);
       const tz = moment.tz.guess();
-      const date = approximateDate.local().tz(tz).format('MMMM D, YYYY h:mm a zz');
+      const date = approximateDate.local().tz(tz).format('MMMM D, YYYY');
       return date;
     }
     return '';
