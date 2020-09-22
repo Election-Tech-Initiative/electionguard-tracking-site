@@ -1,4 +1,3 @@
-
 ![Microsoft Defending Democracy Program: ElectionGuard](images/electionguard-banner.svg)
 
 # 🗳 ElectionGuard Tracking Site
@@ -7,47 +6,41 @@
 
 An application that demonstrates publication of ElectionGuard election artifacts to a public website to enable verification ID lookup, downloadable zip files of the election result (for third-party verifiers), and election results summaries.
 
-## Setup
+## Available Scripts
 
-`yarn install`
+In the project directory, you can run:
 
-## Running
+### `yarn start`
 
-Compiles and hot-reloads for development
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-`yarn serve`
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-Compiles and minifies for production
+### `yarn test`
 
-`yarn build`
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn build`
 
-## Testing & Linting
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-`yarn test`
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Lints and fixes files
+## Learn More
 
-`yarn lint`
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-
-Run your unit tests
-
-`yarn run test:unit`
-
+To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Contributing
 Help defend democracy and **[contribute to the project][]**.
 
 [Code of Conduct]: CODE_OF_CONDUCT.md
 [Contribute to the project]: CONTRIBUTING.md
-
-
-<!-- 
-Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
-
-Guidance on onboarding samples to docs.microsoft.com/samples: https://review.docs.microsoft.com/help/onboard/admin/samples/process/onboarding?branch=master
-
-Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
--->
