@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text } from '@fluentui/react';
-import { HorizontalBarChart } from '@uifabric/charting';
 import { Candidate, ContestDescription, InternationalizedText, PlaintextTallyContest } from '../electionguard/models';
+import ContestChart, { ContestChartProps, SelectionChartData } from './ContestChart';
 
 const ENGLISH: string = 'en';
 
@@ -16,25 +15,43 @@ export interface ContestProps {
     candidates: Candidate[];
 }
 
-export const Contest: React.FunctionComponent<ContestProps> = ({ contest, description, candidates }) => (
-    <>
-        <Text variant="xLarge">{english(description.ballot_title)}</Text>
-        {Object.keys(contest.selections)
-            .map((key) => ({
-                object_id: contest.selections[key].object_id,
-                tally: contest.selections[key].tally,
-                candidate_id: description.ballot_selections,
-            }))
-            .sort((a, b) => a.tally - b.tally)
-            .map((selection) => (
-                <HorizontalBarChart
-                    data={[
-                        {
-                            chartTitle: selection.object_id,
-                            chartData: [{ horizontalBarChartdata: { x: selection.tally, y: 5 }, color: '#1EA7FD' }],
-                        },
-                    ]}
-                />
-            ))}
-    </>
-);
+/**
+ * Render the results of a given Contest.
+ *
+ * NOTE: This is a container around the purely-presentational ContestChart component.
+ * It resolves the election data structures into simplified chart-specific data.
+ *
+ * TODO: Reconsider this approach when higher-level state is added
+ */
+const Contest: React.FunctionComponent<ContestProps> = ({ contest, description, candidates }) => {
+    const chartProps = getContestChartProps(contest, description, candidates);
+
+    return <ContestChart {...chartProps} />;
+};
+
+/**
+ * Transform the raw election data into props fit to inject into the contest chart.
+ */
+function getContestChartProps(
+    contest: PlaintextTallyContest,
+    description: ContestDescription,
+    candidates: Candidate[]
+): ContestChartProps {
+    const getCandidateName = (candidateId: string) => {
+        const candidate = candidates.find((c) => c.object_id === candidateId);
+        return candidate ? english(candidate.ballot_name) : candidateId;
+    };
+
+    const selections: SelectionChartData[] = Object.entries(contest.selections).map(([selectionId, selection]) => ({
+        id: selectionId,
+        title: getCandidateName(selection.object_id),
+        tally: selection.tally,
+    }));
+
+    return {
+        title: english(description.ballot_title),
+        selections,
+    };
+}
+
+export default Contest;

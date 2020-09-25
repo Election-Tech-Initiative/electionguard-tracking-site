@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Contest } from './Contest';
+import Contest from './Contest';
 
 import * as election_description from '../mocks/description.json';
 import * as tally from '../mocks/tally.json';
