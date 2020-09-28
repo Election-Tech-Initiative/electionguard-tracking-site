@@ -23,7 +23,7 @@ export interface SelectionChartData {
  */
 const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, selections }) => {
     const tallies = selections.map((selection) => selection.tally);
-    const maxTally = Math.max(...tallies);
+    const maxTally = Math.max(...tallies) || 1;
 
     const sortedSelections = [...selections].sort((a, b) => b.tally - a.tally);
 
