@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from '@fluentui/react';
 import { HorizontalBarChart } from '@uifabric/charting';
+import { useTheme } from '@fluentui/react-theme-provider';
 
 export interface ContestChartProps {
     /** The title to display for the contest chart */
@@ -47,6 +48,7 @@ interface SelectionChartProps {
  * Renders a single bar representing one Selection in the overall Contest
  */
 const SelectionChart: React.FunctionComponent<SelectionChartProps> = ({ data, maxTally: totalTally }) => {
+    const theme = useTheme();
     return (
         <HorizontalBarChart
             barHeight={20}
@@ -57,7 +59,7 @@ const SelectionChart: React.FunctionComponent<SelectionChartProps> = ({ data, ma
                     chartData: [
                         {
                             horizontalBarChartdata: { x: data.tally, y: totalTally },
-                            color: '#1EA7FD',
+                            color: theme.palette.themePrimary,
                         },
                     ],
                 },
