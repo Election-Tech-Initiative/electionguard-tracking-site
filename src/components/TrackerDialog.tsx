@@ -85,13 +85,23 @@ const unknownDialogContentProps: IDialogContentProps = {
     }),
 };
 
+/**
+ * Props for the Tracker Dialog
+ */
 export interface TrackerDialogProps {
+    /** Hidden state of dialog */
     hidden: boolean;
+    /** Action to take on dismiss of tracker dialog */
     onDismiss: () => void;
+    /** Tracker code */
     tracker: string;
+    /** Confirmation status of tracker */
     confirmed: boolean;
 }
 
+/**
+ * Dialog to display the confirmation status of the tracker
+ */
 export const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
     hidden,
     onDismiss,
