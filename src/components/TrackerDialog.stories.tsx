@@ -2,14 +2,16 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { useBoolean } from '@uifabric/react-hooks';
-import { TrackerDialog, TrackerDialogProps } from './TrackerDialog';
+import TrackerDialog, { TrackerDialogProps } from './TrackerDialog';
+import { initializeIcons } from '@fluentui/react';
 
 export default {
-    title: 'TrackerDialog',
+    title: 'Components/TrackerDialog',
     component: TrackerDialog,
 } as Meta;
 
 const Template: Story<TrackerDialogProps> = (props) => {
+    initializeIcons();
     const [hidden, { toggle: toggleHideDialog }] = useBoolean(true);
 
     return (

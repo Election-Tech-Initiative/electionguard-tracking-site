@@ -2,7 +2,6 @@ import React from 'react';
 import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { Dialog, DialogType, IDialogContentProps } from 'office-ui-fabric-react/lib/Dialog';
 import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
-import { initializeIcons } from '@uifabric/icons';
 import { useTheme } from '@fluentui/react-theme-provider';
 import styled from 'styled-components';
 
@@ -102,14 +101,7 @@ export interface TrackerDialogProps {
 /**
  * Dialog to display the confirmation status of the tracker
  */
-export const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
-    hidden,
-    onDismiss,
-    tracker,
-    confirmed,
-}) => {
-    initializeIcons();
-
+const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({ hidden, onDismiss, tracker, confirmed }) => {
     const modalProps = React.useMemo(
         () => ({
             isBlocking: false,
@@ -129,3 +121,5 @@ export const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
         </Dialog>
     );
 };
+
+export default TrackerDialog;
