@@ -1,22 +1,26 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
+import { initializeIcons, Text } from '@fluentui/react';
 import Layout from './Layout';
-import { StackItem } from '@fluentui/react';
+import LargeCard from './LargeCard';
 
 export default {
-    title: 'Layout',
+    title: 'Components/Layout',
     component: Layout,
     parameters: { layout: 'fullscreen' },
 } as Meta;
 
-const Template: Story = () => (
-    <Layout>
-        <StackItem styles={{ root: { height: 20, background: '#bada55' } }}>Header</StackItem>
-        <StackItem grow styles={{ root: { background: 'magenta' } }}>
-            Content
-        </StackItem>
-    </Layout>
-);
+const Template: Story = () => {
+    initializeIcons();
+    return (
+        <Layout>
+            <LargeCard>
+                <Text variant="large" as="h2">
+                    Content
+                </Text>
+            </LargeCard>
+        </Layout>
+    );
+};
 
 export const Standard = Template.bind({});
