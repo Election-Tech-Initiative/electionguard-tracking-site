@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text } from '@fluentui/react';
 import moment from 'moment';
-import { useTheme } from '@fluentui/react-theme-provider';
 import Title from './Title';
+import { useTheme } from '@fluentui/react-theme-provider';
 
 // TODO #?? Resolve internalization of language using i18n
 const defaultElectionName = 'Election';
@@ -19,9 +19,9 @@ const ElectionTitle: React.FunctionComponent<ElectionTitleProps> = ({ electionNa
     const theme = useTheme();
     return (
         <Title title={electionName ?? defaultElectionName}>
-            <Text as="span" styles={{ root: { color: theme.palette.neutralSecondary, marginLeft: theme.spacing.l1 } }}>
-                {`${moment(startDate).format(dateFormat)}-${moment(endDate).format(dateFormat)}`}
-            </Text>
+            <Text as="span" styles={{ root: { color: theme.palette.neutralSecondary } }}>{`${moment(startDate).format(
+                dateFormat
+            )}-${moment(endDate).format(dateFormat)}`}</Text>
         </Title>
     );
 };

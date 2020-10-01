@@ -14,9 +14,7 @@ const Template: Story<AppBarProps> = (props) => {
     const theme = useTheme();
     return (
         <Stack verticalFill styles={{ root: { backgroundColor: theme.palette.neutralLighterAlt } }}>
-            <AppBar {...props}>
-                <PrimaryButton text="Change Election" />
-            </AppBar>
+            <AppBar {...props} />
         </Stack>
     );
 };
@@ -26,10 +24,12 @@ StandardAppBar.storyName = 'App Bar';
 StandardAppBar.args = {
     logoImageUrl: 'https://themingdesigner.blob.core.windows.net/$web/MicrosoftLogo.png',
     appName: 'ElectionGuard Ballot Tracker',
+    logoUrl: 'https://www.microsoft.com',
 };
 
-export const NoLogoAppBar = Template.bind({});
-NoLogoAppBar.storyName = 'No Logo App Bar';
-NoLogoAppBar.args = {
+export const NoLinkAppBar = Template.bind({});
+NoLinkAppBar.storyName = 'No Link App Bar';
+NoLinkAppBar.args = {
+    logoImageUrl: 'https://themingdesigner.blob.core.windows.net/$web/MicrosoftLogo.png',
     appName: 'ElectionGuard Ballot Tracker',
 };

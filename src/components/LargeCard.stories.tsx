@@ -6,7 +6,6 @@ import LargeCard from './LargeCard';
 export default {
     title: 'Components/LargeCard',
     component: LargeCard,
-    parameters: { layout: 'fullscreen' },
 } as Meta;
 
 const Template: Story = () => {

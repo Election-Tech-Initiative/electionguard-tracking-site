@@ -2,9 +2,11 @@ import React from 'react';
 import { useTheme } from '@fluentui/react-theme-provider';
 import { Card } from '@uifabric/react-cards';
 
-export interface LargeCardProps {}
+export interface LargeCardProps {
+    alignToStart?: boolean;
+}
 
-const LargeCard: React.FunctionComponent<LargeCardProps> = ({ children }) => {
+const LargeCard: React.FunctionComponent<LargeCardProps> = ({ alignToStart, children }) => {
     const theme = useTheme();
     return (
         <Card
@@ -13,6 +15,8 @@ const LargeCard: React.FunctionComponent<LargeCardProps> = ({ children }) => {
                     padding: theme.spacing.l1,
                     backgroundColor: theme.palette.white,
                     marginBottom: theme.spacing.l1,
+                    alignItems: alignToStart ? 'flex-start' : 'stretch',
+                    height: 'auto',
                     maxWidth: 'auto',
                 },
             }}
