@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import AppBar, { AppBarProps } from './AppBar';
-import { PrimaryButton, Stack } from '@fluentui/react';
+import { Stack } from '@fluentui/react';
 import { useTheme } from '@fluentui/react-theme-provider';
 
 export default {
