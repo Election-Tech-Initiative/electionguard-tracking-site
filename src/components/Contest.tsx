@@ -1,6 +1,6 @@
 import React from 'react';
 import { Candidate, ContestDescription, InternationalizedText, PlaintextTallyContest } from '../electionguard/models';
-import ContestChart, { ContestChartProps, SelectionChartData } from './ContestChart';
+import ContestChart, { ContestChartProps, CandidateChartData } from './ContestChart';
 
 const ENGLISH: string = 'en';
 
@@ -42,15 +42,15 @@ function getContestChartProps(
         return candidate ? english(candidate.ballot_name) : candidateId;
     };
 
-    const selections: SelectionChartData[] = Object.entries(contest.selections).map(([selectionId, selection]) => ({
-        id: selectionId,
-        title: getCandidateName(selection.object_id),
-        tally: selection.tally,
+    const candidateData: CandidateChartData[] = Object.entries(contest.selections).map(([candidateId, candidate]) => ({
+        id: candidateId,
+        title: getCandidateName(candidate.object_id),
+        tally: candidate.tally,
     }));
 
     return {
         title: english(description.ballot_title),
-        selections,
+        candidates: candidateData,
     };
 }
 

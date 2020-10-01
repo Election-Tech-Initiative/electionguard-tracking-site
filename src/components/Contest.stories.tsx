@@ -9,8 +9,8 @@ import * as tally from '../mocks/tally.json';
 const contestIds = Object.keys(tally.contests);
 
 export default {
-    title: 'Contest',
-    // component: Contest,
+    title: 'Components/Contest',
+    component: Contest,
     argTypes: {
         contestId: {
             name: 'Contest ID',

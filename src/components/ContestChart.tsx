@@ -6,14 +6,14 @@ import { useTheme } from '@fluentui/react-theme-provider';
 export interface ContestChartProps {
     /** The title to display for the contest chart */
     title: string;
-    /** The results of each selection */
-    selections: SelectionChartData[];
+    /** The results of each candidate */
+    candidates: CandidateChartData[];
 }
 
-export interface SelectionChartData {
-    /** The unique ID of the selection */
+export interface CandidateChartData {
+    /** The unique ID of the candidate */
     id: string;
-    /** The title to display for the selection */
+    /** The title to display for the candidate */
     title: string;
     /** The total tallied votes */
     tally: number;
@@ -22,32 +22,32 @@ export interface SelectionChartData {
 /**
  * Displays the results of a tallied contest as a horizontal bar chart.
  */
-const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, selections }) => {
-    const tallies = selections.map((selection) => selection.tally);
+const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, candidates }) => {
+    const tallies = candidates.map((candidate) => candidate.tally);
     const maxTally = Math.max(...tallies) || 1;
 
-    const sortedSelections = [...selections].sort((a, b) => b.tally - a.tally);
+    const sortedCandidates = [...candidates].sort((a, b) => b.tally - a.tally);
 
     return (
         <>
             <Text variant="xLarge">{title}</Text>
-            {sortedSelections.map((selection) => (
-                <SelectionChart key={selection.id} data={selection} maxTally={maxTally} />
+            {sortedCandidates.map((candidate) => (
+                <CandidateChart key={candidate.id} data={candidate} maxTally={maxTally} />
             ))}
         </>
     );
 };
 
-interface SelectionChartProps {
-    data: SelectionChartData;
+interface CandidateChartProps {
+    data: CandidateChartData;
     maxTally: number;
 }
 
 /**
  * Internal implementation detail of ContestChart.
- * Renders a single bar representing one Selection in the overall Contest
+ * Renders a single bar representing one candidate in the overall Contest
  */
-const SelectionChart: React.FunctionComponent<SelectionChartProps> = ({ data, maxTally: totalTally }) => {
+const CandidateChart: React.FunctionComponent<CandidateChartProps> = ({ data, maxTally: totalTally }) => {
     const theme = useTheme();
     return (
         <HorizontalBarChart
