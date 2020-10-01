@@ -1,13 +1,25 @@
 import React from 'react';
 import { Text } from '@fluentui/react';
+import styled from 'styled-components';
+import { useTheme } from '@fluentui/react-theme-provider';
 
-export interface TitleProps {}
+const Header = styled.header`
+    padding: 52px 0px;
+`;
 
-const Title: React.FunctionComponent<TitleProps> = ({ children }) => {
+export interface TitleProps {
+    title: string;
+}
+
+const Title: React.FunctionComponent<TitleProps> = ({ title, children }) => {
+    const theme = useTheme();
     return (
-        <Text variant="mega" as="h1">
-            {children}
-        </Text>
+        <Header>
+            <Text variant="xxLargePlus" as="h1" styles={{ root: { color: theme.palette.neutralPrimary } }}>
+                {title}
+                {children || null}
+            </Text>
+        </Header>
     );
 };
 
