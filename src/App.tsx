@@ -15,7 +15,7 @@ function App() {
             <Layout>
                 <Switch>
                     <Route path="/" exact component={InputTrackerPage} />
-                    <Route path="/election-results" component={ResultsPage} />
+                    <Route path="/results" component={ResultsPage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </Layout>
