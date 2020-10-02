@@ -1,58 +1,32 @@
 import React from 'react';
+import { Spinner, SpinnerSize, Text } from '@fluentui/react';
+
 import ElectionHeader from '../components/ElectionTitle';
-import LargeCard from '../components/LargeCard';
+import ElectionResults from '../components/ElectionResults';
+import { useElectionDescription } from '../data/queries';
+import { useLocalization } from '../localization/LocalizationProvider';
 
-import ContestChart, { ContestChartProps } from '../components/ContestChart';
-
-const electionName = 'Mock Election';
-const startDate = '2020-03-01T08:00:00-05:00';
-const endDate = '2020-10-01T08:00:00-05:00';
-const results = {
-    contests: [
-        {
-            title: 'Small Contest',
-            candidates: [
-                { id: '1', title: 'Larry', tally: 0 },
-                { id: '2', title: 'Curly', tally: 2 },
-                { id: '3', title: 'Moe', tally: 1 },
-            ],
-        },
-        {
-            title: 'Small Contest',
-            candidates: [
-                { id: '1', title: 'Larry', tally: 0 },
-                { id: '2', title: 'Curly', tally: 2 },
-                { id: '3', title: 'Moe', tally: 1 },
-            ],
-        },
-        {
-            title: 'Small Contest',
-            candidates: [
-                { id: '1', title: 'Larry', tally: 0 },
-                { id: '2', title: 'Curly', tally: 2 },
-                { id: '3', title: 'Moe', tally: 1 },
-            ],
-        },
-    ],
-};
-
-interface ElectionResults {
-    contests: ContestChartProps[];
-}
-
-export interface ResultsPageProps {
-    results: ElectionResults;
-}
+export interface ResultsPageProps {}
 
 const ResultsPage: React.FunctionComponent<ResultsPageProps> = () => {
+    const { translate } = useLocalization();
+    const { data: election, isLoading: electionLoading, isError: electionError } = useElectionDescription();
+
+    if (electionLoading) {
+        return <Spinner size={SpinnerSize.large} />;
+    } else if (electionError || !election) {
+        // TODO: show an error
+        return <Text>ERROR</Text>;
+    }
+
     return (
         <>
-            <ElectionHeader electionName={electionName} startDate={startDate} endDate={endDate} />
-            {results.contests.map((contest) => (
-                <LargeCard>
-                    <ContestChart title={contest.title} candidates={contest.candidates} />
-                </LargeCard>
-            ))}
+            <ElectionHeader
+                electionName={translate(election.name)}
+                startDate={election.start_date}
+                endDate={election.end_date}
+            />
+            <ElectionResults election={election} />
         </>
     );
 };

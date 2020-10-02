@@ -1,8 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Label, PrimaryButton, SearchBox } from '@fluentui/react';
+
 import ElectionHeader from '../components/ElectionTitle';
 import LargeCard from '../components/LargeCard';
-import { useHistory } from 'react-router-dom';
 
 const electionName = 'Mock Election';
 const startDate = '2020-03-01T08:00:00-05:00';
@@ -16,6 +17,7 @@ const InputTrackerPage: React.FunctionComponent<InputTrackerPageProps> = () => {
     const goToResults = () => {
         history.push('/results');
     };
+
     return (
         <>
             <ElectionHeader electionName={electionName} startDate={startDate} endDate={endDate} />

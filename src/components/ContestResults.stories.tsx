@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import Contest from './Contest';
+import ContestResults from './ContestResults';
 
 import * as election_description from '../mocks/description.json';
 import * as tally from '../mocks/tally.json';
@@ -10,7 +10,7 @@ const contestIds = Object.keys(tally.contests);
 
 export default {
     title: 'Components/Contest',
-    component: Contest,
+    component: ContestResults,
     argTypes: {
         contestId: {
             name: 'Contest ID',
@@ -24,7 +24,7 @@ interface StoryArgs {
 }
 
 const Template: Story<StoryArgs> = ({ contestId }) => (
-    <Contest
+    <ContestResults
         contest={(tally as any).contests[contestId]}
         description={election_description.contests.filter((contest) => contest.object_id === contestId)[0]}
         candidates={election_description.candidates}

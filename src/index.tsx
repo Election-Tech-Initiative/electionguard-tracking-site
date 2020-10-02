@@ -1,14 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { initializeIcons } from '@uifabric/icons';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { initializeIcons } from '@uifabric/icons';
+import { DataAccessProvider } from './data/DataAccessProvider';
+import { PublishedDataAccess } from './data/PublishedDataAccess';
+import { LocalizationProvider } from './localization/LocalizationProvider';
 
 initializeIcons();
 
+const queryCache = new QueryCache();
+const dataAccess = new PublishedDataAccess();
+
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <ReactQueryCacheProvider queryCache={queryCache}>
+            <LocalizationProvider>
+                <DataAccessProvider dataAccess={dataAccess}>
+                    <Router>
+                        <App />
+                    </Router>
+                </DataAccessProvider>
+            </LocalizationProvider>
+        </ReactQueryCacheProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

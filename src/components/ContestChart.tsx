@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from '@fluentui/react';
 import { HorizontalBarChart } from '@uifabric/charting';
 import { useTheme } from '@fluentui/react-theme-provider';
+import sum from 'lodash/sum';
 
 export interface ContestChartProps {
     /** The title to display for the contest chart */
@@ -24,7 +25,7 @@ export interface CandidateChartData {
  */
 const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, candidates }) => {
     const tallies = candidates.map((candidate) => candidate.tally);
-    const maxTally = Math.max(...tallies) || 1;
+    const total = sum(tallies) || 1;
 
     const sortedCandidates = [...candidates].sort((a, b) => b.tally - a.tally);
 
@@ -32,7 +33,7 @@ const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, candi
         <>
             <Text variant="xLarge">{title}</Text>
             {sortedCandidates.map((candidate) => (
-                <CandidateChart key={candidate.id} data={candidate} maxTally={maxTally} />
+                <CandidateChart key={candidate.id} data={candidate} total={total} />
             ))}
         </>
     );
@@ -40,19 +41,20 @@ const ContestChart: React.FunctionComponent<ContestChartProps> = ({ title, candi
 
 interface CandidateChartProps {
     data: CandidateChartData;
-    maxTally: number;
+    total: number;
 }
 
 /**
  * Internal implementation detail of ContestChart.
  * Renders a single bar representing one candidate in the overall Contest
  */
-const CandidateChart: React.FunctionComponent<CandidateChartProps> = ({ data, maxTally: totalTally }) => {
+const CandidateChart: React.FunctionComponent<CandidateChartProps> = ({ data, total: totalTally }) => {
     const theme = useTheme();
     return (
         <HorizontalBarChart
-            barHeight={20}
-            styles={{ items: { height: 50 }, chart: { height: 50 } }}
+            hideTooltip
+            barHeight={30}
+            styles={{ items: { height: 60 }, chart: { height: 60 } }}
             data={[
                 {
                     chartTitle: data.title,
