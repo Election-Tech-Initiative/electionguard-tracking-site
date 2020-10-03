@@ -3,18 +3,20 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import ContestResults from './ContestResults';
 
-import * as election_description from '../mocks/description.json';
-import * as tally from '../mocks/tally.json';
+import electionDescription from '../mocks/description.json';
+import tally from '../mocks/tally.json';
+import { transformTallyResults } from '../models/electionguard';
 
-const contestIds = Object.keys(tally.contests);
+const electionResults = transformTallyResults('fake-election', tally);
+const contestIds = Object.keys(electionResults.election_results);
 
 export default {
-    title: 'Components/Contest',
+    title: 'Components/ContestResults',
     component: ContestResults,
     argTypes: {
         contestId: {
             name: 'Contest ID',
-            control: { type: 'select', options: contestIds },
+            control: { type: 'select', options: contestIds, disable: false },
         },
     },
 } as Meta;
@@ -25,9 +27,9 @@ interface StoryArgs {
 
 const Template: Story<StoryArgs> = ({ contestId }) => (
     <ContestResults
-        contest={(tally as any).contests[contestId]}
-        description={election_description.contests.filter((contest) => contest.object_id === contestId)[0]}
-        candidates={election_description.candidates}
+        results={electionResults.election_results[contestId]}
+        contest={electionDescription.contests.filter((contest) => contest.object_id === contestId)[0]}
+        candidates={electionDescription.candidates}
     />
 );
 
