@@ -8,6 +8,7 @@ import { MockDataAccess } from '../src/mocks/MockDataAccess';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: { hideNoControlsWarning: true },
     layout: 'centered',
 };
 
