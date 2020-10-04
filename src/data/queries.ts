@@ -1,5 +1,7 @@
-import { QueryResult, useQuery } from 'react-query';
-import { ElectionDescription, ElectionResultsSummary, TrackedBallot } from '../models';
+import { useQuery } from 'react-query';
+import { ElectionDescription } from '../models/election';
+import { ElectionResultsSummary } from '../models/tally';
+import { TrackedBallot } from '../models/tracking';
 import { useDataAccess } from './DataAccessProvider';
 
 export const QUERIES = {
@@ -7,6 +9,12 @@ export const QUERIES = {
     ELECTION_RESULTS: 'ELECTION_RESULTS',
     SEARCH_BALLOTS: 'SEARCH_BALLOTS',
 };
+
+export interface QueryResult<T> {
+    data: T | undefined;
+    isError: boolean;
+    isLoading: boolean;
+}
 
 /**
  * Fetch the election description

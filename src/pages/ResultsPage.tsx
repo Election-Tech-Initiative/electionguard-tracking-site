@@ -1,33 +1,33 @@
 import React from 'react';
-import { Spinner, SpinnerSize, Text } from '@fluentui/react';
 
 import ElectionHeader from '../components/ElectionTitle';
 import ElectionResults from '../components/ElectionResults';
-import { useElectionDescription } from '../data/queries';
+import { useElectionDescription, useElectionResults } from '../data/queries';
 import { useLocalization } from '../localization/LocalizationProvider';
+import AsyncContent from '../components/AsyncContent';
 
 export interface ResultsPageProps {}
 
 const ResultsPage: React.FunctionComponent<ResultsPageProps> = () => {
     const { translate } = useLocalization();
-    const { data: election, isLoading: electionLoading, isError: electionError } = useElectionDescription();
+    const electionQuery = useElectionDescription();
 
-    if (electionLoading) {
-        return <Spinner size={SpinnerSize.large} />;
-    } else if (electionError || !election) {
-        // TODO: show an error
-        return <Text>ERROR</Text>;
-    }
+    const electionId = electionQuery.data?.election_scope_id || '';
+    const electionResultsQuery = useElectionResults(electionId);
 
     return (
-        <>
-            <ElectionHeader
-                electionName={translate(election.name)}
-                startDate={election.start_date}
-                endDate={election.end_date}
-            />
-            <ElectionResults election={election} />
-        </>
+        <AsyncContent query={electionQuery} errorMessage="Unable to load the election at this time.">
+            {(election) => (
+                <>
+                    <ElectionHeader
+                        electionName={translate(election.name)}
+                        startDate={election.start_date}
+                        endDate={election.end_date}
+                    />
+                    <ElectionResults election={election} electionResultsQuery={electionResultsQuery} />
+                </>
+            )}
+        </AsyncContent>
     );
 };
 

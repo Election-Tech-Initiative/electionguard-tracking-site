@@ -1,12 +1,13 @@
 import path from 'path';
-
-import { ElectionDescription, ElectionResultsSummary, TrackedBallot } from '../models';
+import { ElectionDescription } from '../models/election';
 import {
     CiphertextAcceptedBallot,
     PlaintextTally,
     transformBallotForTracking,
     transformTallyResults,
 } from '../models/electionguard';
+import { ElectionResultsSummary } from '../models/tally';
+import { TrackedBallot } from '../models/tracking';
 import { DataAccess } from './DataAccess';
 
 /**

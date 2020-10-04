@@ -1,4 +1,6 @@
-import { ElectionDescription, ElectionResultsSummary, TrackedBallot } from '../models';
+import { ElectionDescription } from '../models/election';
+import { ElectionResultsSummary } from '../models/tally';
+import { TrackedBallot } from '../models/tracking';
 
 /**
  * Provides access to election data and search functionality.

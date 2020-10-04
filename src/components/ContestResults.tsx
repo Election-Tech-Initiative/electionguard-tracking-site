@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocalization } from '../localization/LocalizationProvider';
-import { Candidate, ContestDescription, ContestResults as ContestResultsModel } from '../models';
+import { Candidate, ContestDescription } from '../models/election';
+import { ContestResults as ContestResultsModel } from '../models/tally';
 import ContestChart, { CandidateChartData } from './ContestChart';
 
 export interface ContestResultsProps {
@@ -11,11 +12,6 @@ export interface ContestResultsProps {
 
 /**
  * Render the results of a given Contest.
- *
- * NOTE: This is a container around the purely-presentational ContestChart component.
- * It resolves the election data structures into simplified chart-specific data.
- *
- * TODO: Reconsider this approach when higher-level state is added
  */
 const ContestResults: React.FunctionComponent<ContestResultsProps> = ({ results, contest, candidates }) => {
     const { translate } = useLocalization();

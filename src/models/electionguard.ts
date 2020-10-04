@@ -1,4 +1,4 @@
-import { ContestResults, ElectionResults, ElectionResultsSummary } from '.';
+import { ContestResults, ElectionResults, ElectionResultsSummary } from './tally';
 import { BallotState, TrackedBallot } from './tracking';
 
 /**

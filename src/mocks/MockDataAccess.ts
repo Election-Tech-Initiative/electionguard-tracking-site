@@ -1,10 +1,12 @@
-import { ElectionDescription, ElectionResultsSummary, TrackedBallot } from '../models';
-import { CiphertextAcceptedBallot, transformBallotForTracking, transformTallyResults } from '../models/electionguard';
 import { DataAccess } from '../data/DataAccess';
 
 import mockDescription from './description.json';
 import mockTally from './tally.json';
 import mockBallots from './ballots.json';
+import { CiphertextAcceptedBallot, transformBallotForTracking, transformTallyResults } from '../models/electionguard';
+import { ElectionDescription } from '../models/election';
+import { ElectionResultsSummary } from '../models/tally';
+import { TrackedBallot } from '../models/tracking';
 
 const electionId = mockDescription.election_scope_id;
 const trackedBallots = (mockBallots as CiphertextAcceptedBallot[]).map((ballot) =>

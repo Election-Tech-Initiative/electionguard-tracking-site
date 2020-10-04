@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { InternationalizedText } from '../models';
+import { InternationalizedText } from '../models/internationalizedText';
 
 export interface LocalizationContextValue {
     translate: (text?: InternationalizedText) => string;

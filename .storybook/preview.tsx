@@ -1,5 +1,7 @@
 import React from 'react';
+import { initializeIcons } from '@uifabric/icons';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+
 import { LocalizationProvider } from '../src/localization/LocalizationProvider';
 import { DataAccessProvider } from '../src/data/DataAccessProvider';
 import { MockDataAccess } from '../src/mocks/MockDataAccess';
@@ -11,6 +13,8 @@ export const parameters = {
 
 const queryCache = new QueryCache();
 const dataAccess = new MockDataAccess();
+
+initializeIcons();
 
 export const decorators = [
     (Story) => (

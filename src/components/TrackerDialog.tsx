@@ -1,9 +1,7 @@
 import React from 'react';
-import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
 import { Dialog, DialogType, IDialogContentProps } from 'office-ui-fabric-react/lib/Dialog';
-import { mergeStyles } from 'office-ui-fabric-react/lib/Styling';
 import { useTheme } from '@fluentui/react-theme-provider';
-import styled from 'styled-components';
+import StatusMessage from './StatusMessage';
 
 // Text for Internationalization
 const confirmedTrackerTitle = 'Ballot Confirmed';
@@ -18,13 +16,6 @@ const unknownTrackerMessage = `
 // Icons
 const confirmedIcon = 'Completed';
 const unknownIcon = 'Unknown';
-
-const titleIcon = mergeStyles({
-    fontSize: 36,
-    height: 36,
-    width: 36,
-    marginRight: 10,
-});
 
 interface TrackerCodeProps {
     tracker: string;
@@ -48,38 +39,21 @@ const TrackerCode: React.FunctionComponent<TrackerCodeProps> = ({ tracker, confi
     );
 };
 
-const DialogTitle = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
 const dialogStyles = { main: { maxWidth: 450 } };
 const confirmedDialogContentProps: IDialogContentProps = {
     type: DialogType.largeHeader,
-    title: (
-        <DialogTitle>
-            <FontIcon iconName={confirmedIcon} className={titleIcon} />
-            {confirmedTrackerTitle}
-        </DialogTitle>
-    ),
+    title: <StatusMessage icon={confirmedIcon} colorName="green" message={confirmedTrackerTitle} />,
     subText: confirmedTrackerMessage,
     styles: ({ theme }) => ({
-        title: { color: theme.palette.green },
         content: { borderColor: theme.palette.green },
     }),
 };
 
 const unknownDialogContentProps: IDialogContentProps = {
     type: DialogType.largeHeader,
-    title: (
-        <DialogTitle>
-            <FontIcon iconName={unknownIcon} className={titleIcon} />
-            {unknownTrackerTitle}
-        </DialogTitle>
-    ),
+    title: <StatusMessage icon={unknownIcon} colorName="themePrimary" message={unknownTrackerTitle} />,
     subText: unknownTrackerMessage,
     styles: ({ theme }) => ({
-        title: { color: theme.palette.themePrimary },
         content: { borderColor: theme.palette.themePrimary },
     }),
 };

@@ -16,7 +16,7 @@ export default {
     argTypes: {
         contestId: {
             name: 'Contest ID',
-            control: { type: 'select', options: contestIds, disable: false },
+            control: { type: 'select', options: contestIds },
         },
     },
 } as Meta;
