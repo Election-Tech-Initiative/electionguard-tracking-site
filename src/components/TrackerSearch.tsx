@@ -18,7 +18,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
 
     const [inputValue, setInputValue] = useState<string>('');
 
-    const { searchResults, isLoading, runQuery } = useSearch(electionId);
+    const { searchResults, previousResults, isLoading, runQuery } = useSearch(electionId);
 
     const inputProps: InputProps<TrackedBallot> = {
         placeholder: 'Enter your tracker code here',
@@ -54,6 +54,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                         render={() => (
                             <TrackerResults
                                 searchResults={searchResults}
+                                previousResults={previousResults}
                                 updateQuery={(newQuery) => {
                                     setInputValue(newQuery);
                                     runQuery(newQuery);
@@ -71,15 +72,22 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
 interface TrackerResultsProps {
     isQuerying: boolean;
     searchResults: TrackedBallot[] | undefined;
+    previousResults: TrackedBallot[] | undefined;
     updateQuery: (query: string) => void;
 }
 
-const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({ searchResults, isQuerying, updateQuery }) => {
+const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({
+    searchResults,
+    previousResults,
+    isQuerying,
+    updateQuery,
+}) => {
     const history = useHistory();
     const { params } = useRouteMatch<{ tracker: string }>();
     const tracker = params.tracker;
 
-    const existingBallot = searchResults?.find((r) => r.tracker_words === tracker);
+    const isMatch = (ballot: TrackedBallot) => ballot.tracker_words === tracker;
+    const existingBallot = searchResults?.find(isMatch) || previousResults?.find(isMatch);
 
     const isLoading = !existingBallot && isQuerying;
 
