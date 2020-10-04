@@ -1,14 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { Label, SearchBox, Stack } from '@fluentui/react';
+import { Stack } from '@fluentui/react';
 
-import ElectionHeader from '../components/ElectionTitle';
-import LargeCard from '../components/LargeCard';
-import { useLocalization } from '../localization/LocalizationProvider';
-import { useElectionDescription, useElectionResults } from '../data/queries';
 import AsyncContent from '../components/AsyncContent';
 import ElectionResults from '../components/ElectionResults';
+import ElectionHeader from '../components/ElectionTitle';
 import TrackerSearch from '../components/TrackerSearch';
+import { useElectionDescription, useElectionResults } from '../data/queries';
+import { useLocalization } from '../localization/LocalizationProvider';
 
 export interface ElectionPageProps {}
 
