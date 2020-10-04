@@ -1,7 +1,12 @@
 import path from 'path';
 
 import { ElectionDescription, ElectionResultsSummary, TrackedBallot } from '../models';
-import { PlaintextTally, transformTallyResults } from '../models/electionguard';
+import {
+    CiphertextAcceptedBallot,
+    PlaintextTally,
+    transformBallotForTracking,
+    transformTallyResults,
+} from '../models/electionguard';
 import { DataAccess } from './DataAccess';
 
 /**
@@ -18,8 +23,14 @@ export class PublishedDataAccess implements DataAccess {
         return transformTallyResults(electionId, tally);
     }
 
-    searchBallots(query: string): Promise<TrackedBallot[]> {
-        throw new Error('Method not implemented.');
+    async searchBallots(electionId: string, query: string): Promise<TrackedBallot[]> {
+        if (query) {
+            const ballotData = await loadPublishedFile<CiphertextAcceptedBallot[]>('encrypted_ballots.json');
+            const allBallots = ballotData.map((ballot) => transformBallotForTracking(electionId, ballot));
+            return allBallots.filter((ballot) => ballot.tracker_words_for_search.startsWith(query));
+        } else {
+            return [];
+        }
     }
 }
 
