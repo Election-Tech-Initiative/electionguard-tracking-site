@@ -12,7 +12,10 @@ function App() {
     return (
         <Layout>
             <Switch>
-                <Route path="/" exact component={ElectionPage} />
+                <Route path="/" exact>
+                    <Redirect to="/election" />
+                </Route>
+                <Route path="/election" component={ElectionPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </Layout>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { initializeIcons } from '@uifabric/icons';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { MemoryRouter } from 'react-router';
 
 import { LocalizationProvider } from '../src/localization/LocalizationProvider';
 import { DataAccessProvider } from '../src/data/DataAccessProvider';
@@ -19,12 +20,14 @@ initializeIcons();
 
 export const decorators = [
     (Story) => (
-        <ReactQueryCacheProvider queryCache={queryCache}>
-            <DataAccessProvider dataAccess={dataAccess}>
-                <LocalizationProvider>
-                    <Story />
-                </LocalizationProvider>
-            </DataAccessProvider>
-        </ReactQueryCacheProvider>
+        <MemoryRouter initialEntries={['/']}>
+            <ReactQueryCacheProvider queryCache={queryCache}>
+                <DataAccessProvider dataAccess={dataAccess}>
+                    <LocalizationProvider>
+                        <Story />
+                    </LocalizationProvider>
+                </DataAccessProvider>
+            </ReactQueryCacheProvider>
+        </MemoryRouter>
     ),
 ];

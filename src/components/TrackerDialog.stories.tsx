@@ -10,7 +10,7 @@ export default {
     component: TrackerDialog,
 } as Meta;
 
-const Template: Story<TrackerDialogProps> = (props) => {
+const Template: Story<TrackerDialogProps> = ({ tracker, confirmed, isLoading }) => {
     initializeIcons();
     const [hidden, { toggle: toggleHideDialog }] = useBoolean(true);
 
@@ -20,9 +20,10 @@ const Template: Story<TrackerDialogProps> = (props) => {
 
             <TrackerDialog
                 hidden={hidden}
-                tracker={props.tracker}
+                isLoading={isLoading}
+                tracker={tracker}
                 onDismiss={toggleHideDialog}
-                confirmed={props.confirmed}
+                confirmed={confirmed}
             />
         </>
     );
@@ -31,6 +32,7 @@ const Template: Story<TrackerDialogProps> = (props) => {
 export const SuccessTrackerDialog = Template.bind({});
 SuccessTrackerDialog.storyName = 'Confirmed Tracker Dialog';
 SuccessTrackerDialog.args = {
+    isLoading: false,
     tracker: 'confirmed-confirmed-confirmed-confirmed-confirmed',
     confirmed: true,
 };
@@ -38,6 +40,7 @@ SuccessTrackerDialog.args = {
 export const UnknownTrackerDialog = Template.bind({});
 UnknownTrackerDialog.storyName = 'Unknown Tracker Dialog';
 UnknownTrackerDialog.args = {
+    isLoading: false,
     tracker: 'unknown-unknown-unknown-unknown-unknown-unknown',
     confirmed: false,
 };
@@ -45,7 +48,16 @@ UnknownTrackerDialog.args = {
 export const LongTrackerDialog = Template.bind({});
 LongTrackerDialog.storyName = 'Long Tracker Dialog';
 LongTrackerDialog.args = {
+    isLoading: false,
     tracker:
         'long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long',
     confirmed: true,
+};
+
+export const LoadingTrackerDialog = Template.bind({});
+LoadingTrackerDialog.storyName = 'Loading Dialog';
+LoadingTrackerDialog.args = {
+    isLoading: true,
+    tracker: '',
+    confirmed: false,
 };

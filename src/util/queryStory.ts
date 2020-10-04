@@ -8,7 +8,7 @@ import { QueryResult } from '../data/queries';
 /**
  * A valid state for an async query to be in
  */
-export type QueryState = 'loading' | 'success' | 'error';
+export type QueryState = 'loading' | 'success' | 'error' | 'idle';
 
 export interface QueryStoryArgs {
     queryState: QueryState;
@@ -33,6 +33,7 @@ export function getDummyQueryResult<T>(queryState: QueryState, data: T): QueryRe
         data: undefined,
         isLoading: false,
         isError: false,
+        isIdle: false,
     };
     switch (queryState) {
         case 'success': {
@@ -45,6 +46,10 @@ export function getDummyQueryResult<T>(queryState: QueryState, data: T): QueryRe
         }
         case 'error': {
             queryResult.isError = true;
+            break;
+        }
+        case 'idle': {
+            queryResult.isIdle = true;
             break;
         }
     }

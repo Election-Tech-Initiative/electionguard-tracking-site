@@ -2,11 +2,14 @@ import React from 'react';
 import { Dialog, DialogType, IDialogContentProps } from 'office-ui-fabric-react/lib/Dialog';
 import { useTheme } from '@fluentui/react-theme-provider';
 import StatusMessage from './StatusMessage';
+import { Spinner, SpinnerSize } from '@fluentui/react';
 
 // Text for Internationalization
 const confirmedTrackerTitle = 'Ballot Confirmed';
 const confirmedTrackerMessage =
     'The following ballot was securely submitted and counted as part of the election tally.';
+const loadingTrackerTitle = 'Searching';
+const loadingTrackerMessage = '';
 const unknownTrackerTitle = 'Ballot Not Found';
 const unknownTrackerMessage = `
     There was no record found of the following ballot and it is not part of the official tally. 
@@ -15,6 +18,7 @@ const unknownTrackerMessage = `
 
 // Icons
 const confirmedIcon = 'Completed';
+const loadingIcon = 'Search';
 const unknownIcon = 'Unknown';
 
 interface TrackerCodeProps {
@@ -58,6 +62,15 @@ const unknownDialogContentProps: IDialogContentProps = {
     }),
 };
 
+const loadingDialogContentProps: IDialogContentProps = {
+    type: DialogType.largeHeader,
+    title: <StatusMessage icon={loadingIcon} colorName="neutralPrimary" message={loadingTrackerTitle} />,
+    subText: loadingTrackerMessage,
+    styles: ({ theme }) => ({
+        content: { borderColor: theme.palette.neutralLight },
+    }),
+};
+
 /**
  * Props for the Tracker Dialog
  */
@@ -66,32 +79,45 @@ export interface TrackerDialogProps {
     hidden: boolean;
     /** Action to take on dismiss of tracker dialog */
     onDismiss: () => void;
+    /** Action to take once the dialog has disappeared */
+    onDismissed?: () => void;
     /** Tracker code */
     tracker: string;
     /** Confirmation status of tracker */
     confirmed: boolean;
+    /** The application is looking for the tracker */
+    isLoading?: boolean;
 }
 
 /**
  * Dialog to display the confirmation status of the tracker
  */
-const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({ hidden, onDismiss, tracker, confirmed }) => {
+const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
+    hidden,
+    isLoading = false,
+    onDismiss,
+    onDismissed,
+    tracker,
+    confirmed,
+}) => {
     const modalProps = React.useMemo(
         () => ({
             isBlocking: false,
             styles: dialogStyles,
+            onDismissed,
         }),
-        []
+        [onDismissed]
     );
 
+    const dialogContentProps = isLoading
+        ? loadingDialogContentProps
+        : confirmed
+        ? confirmedDialogContentProps
+        : unknownDialogContentProps;
+
     return (
-        <Dialog
-            hidden={hidden}
-            onDismiss={onDismiss}
-            dialogContentProps={confirmed ? confirmedDialogContentProps : unknownDialogContentProps}
-            modalProps={modalProps}
-        >
-            <TrackerCode tracker={tracker} confirmed={confirmed} />
+        <Dialog hidden={hidden} onDismiss={onDismiss} dialogContentProps={dialogContentProps} modalProps={modalProps}>
+            {isLoading ? <Spinner size={SpinnerSize.large} /> : <TrackerCode tracker={tracker} confirmed={confirmed} />}
         </Dialog>
     );
 };

@@ -26,7 +26,7 @@ export class MockDataAccess implements DataAccess {
         return transformTallyResults(electionId, tally);
     }
 
-    async searchBallots(query: string): Promise<TrackedBallot[]> {
+    async searchBallots(electionId: string, query: string): Promise<TrackedBallot[]> {
         return query ? trackedBallots.filter((ballot) => ballot.tracker_words_for_search.startsWith(query)) : [];
     }
 }

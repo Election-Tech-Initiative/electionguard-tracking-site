@@ -14,6 +14,7 @@ export interface QueryResult<T> {
     data: T | undefined;
     isError: boolean;
     isLoading: boolean;
+    isIdle: boolean;
 }
 
 /**
@@ -55,7 +56,10 @@ export function useSearchBallots(
         [QUERIES.ELECTION_DESCRIPTION, electionId, trackerQuery],
         () => dataAccess.searchBallots(electionId, trackerQuery),
         {
+            // The search will stay in 'idle' state until this is satisfied
             enabled: condition && electionId,
+            // Results for each query are cached for this time
+            staleTime: 60 * 1000,
         }
     );
 }

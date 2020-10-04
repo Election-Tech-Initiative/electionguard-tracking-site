@@ -67,6 +67,6 @@ export function transformBallotForTracking(electionId: string, ballot: Ciphertex
         // We provide this function in the electionguard-python library,
         // and wrap it in the electionguard-web-api as well.
         tracker_words: ballot.tracking_hash,
-        tracker_words_for_search: ballot.tracking_hash,
+        tracker_words_for_search: ballot.tracking_hash?.replace(/\s+/g, ''),
     };
 }

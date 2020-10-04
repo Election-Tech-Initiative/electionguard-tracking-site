@@ -7,13 +7,15 @@ import { initializeIcons } from '@uifabric/icons';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { DataAccessProvider } from './data/DataAccessProvider';
-import { PublishedDataAccess } from './data/PublishedDataAccess';
 import { LocalizationProvider } from './localization/LocalizationProvider';
+import config from './config';
 
 initializeIcons();
 
-const queryCache = new QueryCache();
-const dataAccess = new PublishedDataAccess();
+const queryCache = new QueryCache({
+    defaultConfig: config.cache,
+});
+const dataAccess = config.getDataAccess();
 
 ReactDOM.render(
     <React.StrictMode>

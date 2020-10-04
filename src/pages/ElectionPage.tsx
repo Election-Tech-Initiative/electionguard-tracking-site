@@ -8,16 +8,11 @@ import { useLocalization } from '../localization/LocalizationProvider';
 import { useElectionDescription, useElectionResults } from '../data/queries';
 import AsyncContent from '../components/AsyncContent';
 import ElectionResults from '../components/ElectionResults';
+import TrackerSearch from '../components/TrackerSearch';
 
 export interface ElectionPageProps {}
 
 const ElectionPage: React.FunctionComponent<ElectionPageProps> = () => {
-    const history = useHistory();
-
-    const goToResults = () => {
-        history.push('/results');
-    };
-
     const { translate } = useLocalization();
     const electionQuery = useElectionDescription();
 
@@ -35,13 +30,7 @@ const ElectionPage: React.FunctionComponent<ElectionPageProps> = () => {
                             endDate={election.end_date}
                         />
 
-                        <LargeCard alignToStart>
-                            <Label>Ballot Search</Label>
-                            <SearchBox
-                                styles={{ root: { width: '100%', maxWidth: 600 } }}
-                                placeholder="Input Ballot Tracker"
-                            />
-                        </LargeCard>
+                        <TrackerSearch electionId={election.election_scope_id} />
 
                         <ElectionResults election={election} electionResultsQuery={electionResultsQuery} />
                     </>
