@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Label } from '@fluentui/react';
+import { Theme, useTheme } from '@fluentui/react-theme-provider';
 import Autosuggest, { InputProps } from 'react-autosuggest';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 
@@ -12,9 +13,65 @@ export interface TrackerSearchProps {
     electionId: string;
 }
 
+const fromTheme = (theme: Theme) => {
+    const { palette, fonts, spacing, semanticColors, effects } = theme;
+    return {
+        container: {
+            width: '100%',
+        },
+        input: {
+            color: semanticColors.inputText,
+            backgroundColor: semanticColors.inputBackground,
+            padding: '2px 4px 1px 4px',
+            borderRadius: effects.roundedCorner2,
+            border: `1px solid ${semanticColors.inputBorder}`,
+            height: 32,
+            width: '100%',
+            outline: 'none',
+            fontFamily: fonts.medium.fontFamily,
+            fontSize: fonts.medium.fontSize,
+            fontColor: fonts.medium.color,
+            maxWidth: 400,
+        },
+        inputOpen: { borderColor: semanticColors.inputBorderHovered },
+        inputFocused: {
+            borderColor: semanticColors.inputFocusBorderAlt,
+            cornerRadius: effects.roundedCorner2,
+        },
+        suggestionsContainer: {
+            padding: 0,
+        },
+        suggestionsContainerOpen: {
+            maxWidth: 650,
+            marginTop: 4,
+            padding: 0,
+            border: `1px solid ${semanticColors.disabledBorder}`,
+        },
+        suggestionsList: {
+            margin: 0,
+            padding: 0,
+            fontFamily: fonts.medium.fontFamily,
+            fontSize: fonts.medium.fontSize,
+            fontColor: fonts.medium.color,
+            listStyle: 'none',
+        },
+        suggestion: {
+            padding: spacing.m,
+            whiteSpace: 'nowrap' as 'nowrap', // # Fixes bug with react-autosuggest theme
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+        },
+        suggestionHighlighted: {
+            backgroundColor: palette.neutralLighterAlt,
+        },
+    };
+};
+
 const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId }) => {
     const history = useHistory();
     const { path, url } = useRouteMatch();
+
+    const theme = useTheme();
 
     // Track the raw input value from the user
     const [inputValue, setInputValue] = useState<string>('');
@@ -35,6 +92,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
             <LargeCard alignToStart>
                 <Label>Ballot Search</Label>
                 <Autosuggest
+                    theme={fromTheme(theme)}
                     suggestions={results}
                     onSuggestionsFetchRequested={({ value }) => {
                         search(value);

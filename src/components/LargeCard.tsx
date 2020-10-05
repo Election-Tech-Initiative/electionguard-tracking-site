@@ -21,7 +21,7 @@ const LargeCard: React.FunctionComponent<LargeCardProps> = ({ alignToStart, chil
                 },
             }}
         >
-            <CardSection>{children || null}</CardSection>
+            <CardSection styles={{ root: { width: '100%' } }}>{children || null}</CardSection>
         </Card>
     );
 };
