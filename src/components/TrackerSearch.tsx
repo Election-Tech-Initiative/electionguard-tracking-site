@@ -3,11 +3,14 @@ import { Label } from '@fluentui/react';
 import { Theme, useTheme } from '@fluentui/react-theme-provider';
 import Autosuggest, { InputProps } from 'react-autosuggest';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
+import take from 'lodash/take';
 
 import LargeCard from './LargeCard';
 import { TrackedBallot } from '../models/tracking';
 import TrackerDialog from './TrackerDialog';
 import { useSearch } from './TrackerSearch.hooks';
+
+const MAX_RESULTS_TO_SHOW = 5;
 
 export interface TrackerSearchProps {
     electionId: string;
@@ -93,7 +96,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                 <Label>Ballot Search</Label>
                 <Autosuggest
                     theme={fromTheme(theme)}
-                    suggestions={results}
+                    suggestions={take(results, MAX_RESULTS_TO_SHOW)}
                     onSuggestionsFetchRequested={({ value }) => {
                         search(value);
                     }}
@@ -114,6 +117,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                         path={`${path}/track/:tracker`}
                         render={() => (
                             <TrackerResults
+                                parentPath={url}
                                 searchResults={results}
                                 updateQuery={(newQuery) => {
                                     setInputValue(newQuery);
@@ -131,11 +135,17 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
 
 interface TrackerResultsProps {
     isQuerying: boolean;
+    parentPath: string;
     searchResults: TrackedBallot[];
     updateQuery: (query: string) => void;
 }
 
-const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({ searchResults, isQuerying, updateQuery }) => {
+const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({
+    searchResults,
+    parentPath,
+    isQuerying,
+    updateQuery,
+}) => {
     const history = useHistory();
     const { params } = useRouteMatch<{ tracker: string }>();
     const tracker = params.tracker;
@@ -158,7 +168,7 @@ const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({ searchRe
             tracker={tracker}
             confirmed={!!existingBallot}
             onDismiss={() => {
-                history.replace('/');
+                history.replace(parentPath);
             }}
         />
     );
