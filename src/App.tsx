@@ -8,16 +8,13 @@ import ElectionPage from './pages/ElectionPage';
 import HomePage from './pages/HomePage';
 
 import './App.css';
-import { useElections } from './data/queries';
 
 function App() {
-    const electionsQuery = useElections();
-
     return (
         <Layout>
             <Switch>
-                <Route path="/" exact render={() => <HomePage electionsQuery={electionsQuery} />} />
-                <Route path="/:electionId" render={() => <ElectionPage electionsQuery={electionsQuery} />} />
+                <Route path="/" exact component={HomePage} />
+                <Route path="/:electionId" component={ElectionPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </Layout>
