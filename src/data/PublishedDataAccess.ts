@@ -14,8 +14,9 @@ import { DataAccess } from './DataAccess';
  * DataAccess implementation for static published ElectionGuard data.
  */
 export class PublishedDataAccess implements DataAccess {
-    getElectionDescription(): Promise<ElectionDescription> {
-        return loadPublishedFile('description.json');
+    async getElections(): Promise<ElectionDescription[]> {
+        const election = await loadPublishedFile('description.json');
+        return [election as ElectionDescription];
     }
 
     async getElectionResults(electionId: string): Promise<ElectionResultsSummary> {

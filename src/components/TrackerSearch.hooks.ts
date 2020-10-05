@@ -47,7 +47,7 @@ export function useSearch(electionId: string, options: SearchOptions = {}): Sear
     // If the query is not valid, the search results will be undefined and the state of the fetch
     // will be "idle".
     const { data: searchResults, isIdle, isLoading } = useSearchBallots(electionId, preparedQuery, isValidQuery);
-    if (searchResults) {
+    if (searchResults !== undefined) {
         latestQuery.current = query;
         latestResults.current = searchResults;
     }
@@ -62,7 +62,7 @@ export function useSearch(electionId: string, options: SearchOptions = {}): Sear
     }, [search]);
 
     return {
-        results: searchResults || latestResults.current,
+        results: isValidQuery ? searchResults || latestResults.current : [],
         isLoading: isIdle || isLoading,
         search,
         clear,
