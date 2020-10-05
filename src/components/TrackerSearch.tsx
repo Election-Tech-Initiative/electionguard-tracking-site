@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Label } from '@fluentui/react';
 import Autosuggest, { InputProps } from 'react-autosuggest';
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
@@ -16,7 +16,10 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
     const history = useHistory();
     const { path, url } = useRouteMatch();
 
-    const { inputValue, setInputValue, results, isLoading, search, clear } = useSearch(electionId);
+    // Track the raw input value from the user
+    const [inputValue, setInputValue] = useState<string>('');
+
+    const { results, isLoading, search, clear } = useSearch(electionId);
 
     // Wire up the input element to the search input value
     const inputProps: InputProps<TrackedBallot> = {
@@ -37,6 +40,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                         search(value);
                     }}
                     onSuggestionsClearRequested={() => {
+                        setInputValue('');
                         clear();
                     }}
                     onSuggestionSelected={(event, { suggestion }) => {

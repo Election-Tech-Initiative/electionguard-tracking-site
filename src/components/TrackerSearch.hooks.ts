@@ -12,10 +12,6 @@ export interface SearchOptions {
 }
 
 export interface Search {
-    /** The value as typed by the user, appearing in a search field */
-    inputValue: string;
-    /** Update the input value */
-    setInputValue: (newValue: string) => void;
     /** The latest search results, or an empty array */
     results: TrackedBallot[];
     /**
@@ -36,9 +32,6 @@ export interface Search {
 export function useSearch(electionId: string, options: SearchOptions = {}): Search {
     const { minimumQueryLength = DEFAULT_MINIMUM_QUERY_LENGTH, debounceTimeInMs = DEFAULT_DEBOUNCE_TIME_MS } = options;
 
-    // Track the raw input value from the user
-    const [inputValue, setInputValue] = useState<string>('');
-
     const [query, setQuery] = useState<string>('');
 
     // Hold onto the latest non-empty search results.
@@ -53,7 +46,7 @@ export function useSearch(electionId: string, options: SearchOptions = {}): Sear
     // Fetch query results (live or cached) for the query if valid.
     // If the query is not valid, the search results will be undefined and the state of the fetch
     // will be "idle".
-    const { data: searchResults, isLoading } = useSearchBallots(electionId, preparedQuery, isValidQuery);
+    const { data: searchResults, isIdle, isLoading } = useSearchBallots(electionId, preparedQuery, isValidQuery);
     if (searchResults) {
         latestQuery.current = query;
         latestResults.current = searchResults;
@@ -65,17 +58,12 @@ export function useSearch(electionId: string, options: SearchOptions = {}): Sear
     // Provide a function to wipe the search
     const clear = useCallback(() => {
         search.cancel();
-        setInputValue('');
         setQuery('');
-        latestQuery.current = '';
-        latestResults.current = [];
     }, [search]);
 
     return {
-        inputValue,
-        setInputValue,
         results: searchResults || latestResults.current,
-        isLoading: isLoading,
+        isLoading: isIdle || isLoading,
         search,
         clear,
     };
