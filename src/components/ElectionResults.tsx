@@ -1,5 +1,5 @@
 import React from 'react';
-import { QueryResult } from '../data/queries';
+import { useElectionResults } from '../data/queries';
 import { ElectionDescription } from '../models/election';
 import { ElectionResultsSummary } from '../models/tally';
 import AsyncContent from './AsyncContent';
@@ -10,13 +10,14 @@ const errorMessage = 'Unable to retrieve election results at this time.';
 
 export interface ElectionResultsProps {
     election: ElectionDescription;
-    electionResultsQuery: QueryResult<ElectionResultsSummary>;
 }
 
 /**
  * Render the results of the election
  */
-const ElectionResults: React.FunctionComponent<ElectionResultsProps> = ({ election, electionResultsQuery }) => {
+const ElectionResults: React.FunctionComponent<ElectionResultsProps> = ({ election }) => {
+    const electionResultsQuery = useElectionResults(election.election_scope_id);
+
     return (
         <AsyncContent query={electionResultsQuery} errorMessage={errorMessage}>
             {(results) => {

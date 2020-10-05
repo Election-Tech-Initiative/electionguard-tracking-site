@@ -22,12 +22,7 @@ export default {
 interface StoryArgs extends QueryStoryArgs {}
 
 const Template: Story<StoryArgs> = ({ queryState }) => {
-    return (
-        <ElectionResults
-            election={electionDescription as ElectionDescription}
-            electionResultsQuery={getDummyQueryResult(queryState, electionResults)}
-        />
-    );
+    return <ElectionResults election={electionDescription as ElectionDescription} />;
 };
 
 export const Success = Template.bind({});

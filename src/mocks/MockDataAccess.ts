@@ -17,8 +17,8 @@ const trackedBallots = (mockBallots as CiphertextAcceptedBallot[]).map((ballot) 
  * DataAccess implementation for in-memory synchronous mocked data
  */
 export class MockDataAccess implements DataAccess {
-    async getElectionDescription(): Promise<ElectionDescription> {
-        return mockDescription as any;
+    async getElections(): Promise<ElectionDescription[]> {
+        return [mockDescription as any];
     }
 
     async getElectionResults(electionId: string): Promise<ElectionResultsSummary> {
