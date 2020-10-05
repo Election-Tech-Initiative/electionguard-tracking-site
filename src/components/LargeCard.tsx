@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '@fluentui/react-theme-provider';
-import { Card } from '@uifabric/react-cards';
+import { Card, CardSection } from '@uifabric/react-cards';
 
 export interface LargeCardProps {
     alignToStart?: boolean;
@@ -21,7 +21,7 @@ const LargeCard: React.FunctionComponent<LargeCardProps> = ({ alignToStart, chil
                 },
             }}
         >
-            {children || null}
+            <CardSection>{children || null}</CardSection>
         </Card>
     );
 };
