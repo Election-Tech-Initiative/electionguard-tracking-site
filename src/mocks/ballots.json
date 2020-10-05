@@ -1,0 +1,27 @@
+[
+    {
+        "object_id": "ballot-1acfef78-029b-11eb-9852-acde48001122",
+        "state": "CAST",
+        "tracking_hash": "fake code fake code 1"
+    },
+    {
+        "object_id": "ballot-1ad00332-029b-11eb-9852-acde48001122",
+        "state": "CAST",
+        "tracking_hash": "fake code fake code 2"
+    },
+    {
+        "object_id": "ballot-1ad01476-029b-11eb-9852-acde48001122",
+        "state": "CAST",
+        "tracking_hash": "fake code snake code 3"
+    },
+    {
+        "object_id": "ballot-1ad02ef2-029b-11eb-9852-acde48001122",
+        "state": "CAST",
+        "tracking_hash": "fake code snake mode 4"
+    },
+    {
+        "object_id": "ballot-1ad04b6c-029b-11eb-9852-acde48001122",
+        "state": "CAST",
+        "tracking_hash": "fake code snake mode 5"
+    }
+]
