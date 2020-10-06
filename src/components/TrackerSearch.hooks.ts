@@ -4,7 +4,7 @@ import { useSearchBallots } from '../data/queries';
 import { TrackedBallot } from '../models/tracking';
 
 const DEFAULT_MINIMUM_QUERY_LENGTH = 3;
-const DEFAULT_DEBOUNCE_TIME_MS = 300;
+const DEFAULT_DEBOUNCE_TIME_MS = 250;
 
 export interface SearchOptions {
     minimumQueryLength?: number;
