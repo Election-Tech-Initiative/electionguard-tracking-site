@@ -15,7 +15,7 @@ const ElectionPage: React.FunctionComponent<HomePageProps> = () => {
             <AsyncContent query={electionsQuery} errorMessage="Unable to load any elections at this time.">
                 {(elections) => {
                     const election = elections[0];
-                    return <Redirect to={`/${election.election_scope_id}`} />;
+                    return <Redirect to={`/${election.id}`} />;
                 }}
             </AsyncContent>
         </Stack>

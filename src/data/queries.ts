@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { ElectionDescription } from '../models/election';
+import { Election } from '../models/election';
 import { ElectionResultsSummary } from '../models/tally';
 import { TrackedBallot } from '../models/tracking';
 import { useDataAccess } from './DataAccessProvider';
@@ -18,10 +18,10 @@ export interface QueryResult<T> {
 }
 
 /**
- * Fetch the available election descriptions
+ * Fetch the available elections
  * @param condition An optional boolean value which, if false, will prevent the query from running.
  */
-export function useElections(condition: boolean = true): QueryResult<ElectionDescription[]> {
+export function useElections(condition: boolean = true): QueryResult<Election[]> {
     const dataAccess = useDataAccess();
     return useQuery(QUERIES.ELECTIONS, () => dataAccess.getElections(), { enabled: condition });
 }

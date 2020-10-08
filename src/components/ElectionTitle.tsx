@@ -7,7 +7,7 @@ import { useTheme } from '@fluentui/react-theme-provider';
 // TODO #?? Resolve internalization of language using i18n
 const defaultElectionName = 'Election';
 // TODO #?? Resolve internalization of dates using i18n
-const dateFormat = 'MM/DD/YYYY';
+const dateFormat = 'MM/DD/YYYY h:mm a';
 
 export interface ElectionTitleProps {
     electionName?: string;
@@ -21,7 +21,7 @@ const ElectionTitle: React.FunctionComponent<ElectionTitleProps> = ({ electionNa
         <Title title={electionName ?? defaultElectionName}>
             <Text as="span" styles={{ root: { color: theme.palette.neutralSecondary } }}>{`${moment(startDate).format(
                 dateFormat
-            )}-${moment(endDate).format(dateFormat)}`}</Text>
+            )} - ${moment(endDate).format(dateFormat)}`}</Text>
         </Title>
     );
 };

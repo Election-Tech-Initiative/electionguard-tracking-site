@@ -1,8 +1,9 @@
 import React from 'react';
-import { Stack } from '@fluentui/react';
+import { Stack, Text } from '@fluentui/react';
 
 import AsyncContent from '../components/AsyncContent';
 import ElectionTitle from '../components/ElectionTitle';
+import ElectionPlaceholderMessage from '../components/ElectionPlaceholderMessage';
 import TrackerSearch from '../components/TrackerSearch';
 import ElectionResults from '../components/ElectionResults';
 import { useElections } from '../data/queries';
@@ -21,7 +22,7 @@ const ElectionPage: React.FunctionComponent<ElectionPageProps> = () => {
         <Stack>
             <AsyncContent query={electionsQuery} errorMessage="Unable to load the election at this time.">
                 {(elections) => {
-                    const election = elections.find((e) => e.election_scope_id === electionId);
+                    const election = elections.find((e) => e.id === electionId);
 
                     if (!election) {
                         return <Title title="We're having trouble finding this election. Please try again." />;
@@ -30,14 +31,18 @@ const ElectionPage: React.FunctionComponent<ElectionPageProps> = () => {
                     return (
                         <>
                             <ElectionTitle
-                                electionName={translate(election!.name)}
-                                startDate={election!.start_date}
-                                endDate={election!.end_date}
+                                electionName={translate(election!.election_description.name)}
+                                startDate={election!.election_description.start_date}
+                                endDate={election!.election_description.end_date}
                             />
-
-                            <TrackerSearch electionId={election!.election_scope_id} />
-
-                            <ElectionResults election={election!} />
+                            {election.state === 'Published' ? (
+                                <>
+                                    <TrackerSearch electionId={election!.id} />
+                                    <ElectionResults election={election!} />
+                                </>
+                            ) : (
+                                <ElectionPlaceholderMessage endDate={election!.election_description.end_date} />
+                            )}
                         </>
                     );
                 }}

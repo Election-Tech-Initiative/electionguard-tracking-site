@@ -1,6 +1,6 @@
 import React from 'react';
 import { useElectionResults } from '../data/queries';
-import { ElectionDescription } from '../models/election';
+import { Election } from '../models/election';
 import { ElectionResultsSummary } from '../models/tally';
 import AsyncContent from './AsyncContent';
 import ContestResults from './ContestResults';
@@ -9,14 +9,14 @@ import LargeCard from './LargeCard';
 const errorMessage = 'Unable to retrieve election results at this time.';
 
 export interface ElectionResultsProps {
-    election: ElectionDescription;
+    election: Election;
 }
 
 /**
  * Render the results of the election
  */
 const ElectionResults: React.FunctionComponent<ElectionResultsProps> = ({ election }) => {
-    const electionResultsQuery = useElectionResults(election.election_scope_id);
+    const electionResultsQuery = useElectionResults(election.id);
 
     return (
         <AsyncContent query={electionResultsQuery} errorMessage={errorMessage}>
@@ -29,7 +29,7 @@ const ElectionResults: React.FunctionComponent<ElectionResultsProps> = ({ electi
                                 <ContestResults
                                     results={contest.results}
                                     contest={contest.description!}
-                                    candidates={election.candidates}
+                                    candidates={election.election_description.candidates}
                                 />
                             </LargeCard>
                         ))}
@@ -40,12 +40,12 @@ const ElectionResults: React.FunctionComponent<ElectionResultsProps> = ({ electi
     );
 };
 
-function getContests(election: ElectionDescription, results: ElectionResultsSummary) {
+function getContests(election: Election, results: ElectionResultsSummary) {
     const contests = Object.entries(results.election_results)
         .map(([contestId, contestResults]) => ({
             id: contestId,
             results: contestResults,
-            description: election.contests.find((c) => c.object_id === contestId),
+            description: election.election_description.contests.find((c) => c.object_id === contestId),
         }))
         .filter((c) => !!c.description);
     return contests;

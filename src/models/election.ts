@@ -1,5 +1,13 @@
 import { InternationalizedText } from './internationalizedText';
 
+export type ElectionState = 'New' | 'Open' | 'Closed' | 'Published';
+
+export interface Election {
+    id: string;
+    election_description: ElectionDescription;
+    state: ElectionState;
+}
+
 export interface ElectionDescription {
     election_scope_id: string;
     start_date: string;
