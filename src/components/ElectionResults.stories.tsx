@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import ElectionResults from './ElectionResults';
 
 import electionDescription from '../mocks/description.json';
-import { ElectionDescription } from '../models/election';
+import { Election } from '../models/election';
 import { queryArgTypes, QueryStoryArgs } from '../util/queryStory';
 
 export default {
@@ -18,7 +18,12 @@ export default {
 interface StoryArgs extends QueryStoryArgs {}
 
 const Template: Story<StoryArgs> = ({ queryState }) => {
-    return <ElectionResults election={electionDescription as ElectionDescription} />;
+    var election = {
+        id: electionDescription.election_scope_id,
+        election_description: electionDescription,
+        state: 'Published',
+    } as Election;
+    return <ElectionResults election={election} />;
 };
 
 export const Success = Template.bind({});
