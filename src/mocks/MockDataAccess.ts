@@ -20,7 +20,7 @@ export class MockDataAccess implements DataAccess {
     async getElections(): Promise<Election[]> {
         const mockElection: Election = {
             id: mockDescription.election_scope_id,
-            election_description: mockDescription,
+            election_description: mockDescription as any,
             state: 'Published',
         };
         return [mockElection];
