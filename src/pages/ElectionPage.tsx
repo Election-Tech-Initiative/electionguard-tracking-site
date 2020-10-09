@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Text } from '@fluentui/react';
+import { Stack } from '@fluentui/react';
 
 import AsyncContent from '../components/AsyncContent';
 import ElectionTitle from '../components/ElectionTitle';
