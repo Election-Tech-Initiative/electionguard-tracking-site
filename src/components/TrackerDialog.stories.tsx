@@ -10,7 +10,7 @@ export default {
     component: TrackerDialog,
 } as Meta;
 
-const Template: Story<TrackerDialogProps> = ({ tracker, confirmed, isLoading }) => {
+const Template: Story<TrackerDialogProps> = ({ tracker, trackerState }) => {
     initializeIcons();
     const [hidden, { toggle: toggleHideDialog }] = useBoolean(true);
 
@@ -18,13 +18,7 @@ const Template: Story<TrackerDialogProps> = ({ tracker, confirmed, isLoading }) 
         <>
             <DefaultButton secondaryText="Opens the Sample Dialog" onClick={toggleHideDialog} text="Open Dialog" />
 
-            <TrackerDialog
-                hidden={hidden}
-                isLoading={isLoading}
-                tracker={tracker}
-                onDismiss={toggleHideDialog}
-                confirmed={confirmed}
-            />
+            <TrackerDialog hidden={hidden} tracker={tracker} onDismiss={toggleHideDialog} trackerState={trackerState} />
         </>
     );
 };
@@ -32,32 +26,35 @@ const Template: Story<TrackerDialogProps> = ({ tracker, confirmed, isLoading }) 
 export const SuccessTrackerDialog = Template.bind({});
 SuccessTrackerDialog.storyName = 'Confirmed Tracker Dialog';
 SuccessTrackerDialog.args = {
-    isLoading: false,
     tracker: 'confirmed-confirmed-confirmed-confirmed-confirmed',
-    confirmed: true,
+    trackerState: 'confirmed',
+};
+
+export const SpoiledTrackerDialog = Template.bind({});
+SpoiledTrackerDialog.storyName = 'Spoiled Tracker Dialog';
+SpoiledTrackerDialog.args = {
+    tracker: 'spoiled-spoiled-spoiled-spoiled-spoiled',
+    trackerState: 'spoiled',
 };
 
 export const UnknownTrackerDialog = Template.bind({});
 UnknownTrackerDialog.storyName = 'Unknown Tracker Dialog';
 UnknownTrackerDialog.args = {
-    isLoading: false,
     tracker: 'unknown-unknown-unknown-unknown-unknown-unknown',
-    confirmed: false,
+    trackerState: 'unknown',
 };
 
 export const LongTrackerDialog = Template.bind({});
 LongTrackerDialog.storyName = 'Long Tracker Dialog';
 LongTrackerDialog.args = {
-    isLoading: false,
     tracker:
         'long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long',
-    confirmed: true,
+    trackerState: 'confirmed',
 };
 
 export const LoadingTrackerDialog = Template.bind({});
 LoadingTrackerDialog.storyName = 'Loading Dialog';
 LoadingTrackerDialog.args = {
-    isLoading: true,
     tracker: '',
-    confirmed: false,
+    trackerState: 'loading',
 };

@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query';
-import { ElectionDescription } from '../models/election';
+import { Election } from '../models/election';
 import { ElectionResultsSummary } from '../models/tally';
 import { TrackedBallot } from '../models/tracking';
 import { useDataAccess } from './DataAccessProvider';
 
 export const QUERIES = {
-    ELECTION_DESCRIPTION: 'ELECTION_DESCRIPTION',
+    ELECTIONS: 'ELECTIONS',
     ELECTION_RESULTS: 'ELECTION_RESULTS',
     SEARCH_BALLOTS: 'SEARCH_BALLOTS',
 };
@@ -18,12 +18,12 @@ export interface QueryResult<T> {
 }
 
 /**
- * Fetch the election description
+ * Fetch the available elections
  * @param condition An optional boolean value which, if false, will prevent the query from running.
  */
-export function useElectionDescription(condition: boolean = true): QueryResult<ElectionDescription> {
+export function useElections(condition: boolean = true): QueryResult<Election[]> {
     const dataAccess = useDataAccess();
-    return useQuery(QUERIES.ELECTION_DESCRIPTION, () => dataAccess.getElectionDescription(), { enabled: condition });
+    return useQuery(QUERIES.ELECTIONS, () => dataAccess.getElections(), { enabled: condition });
 }
 
 /**
@@ -34,7 +34,7 @@ export function useElectionDescription(condition: boolean = true): QueryResult<E
  */
 export function useElectionResults(electionId: string, condition: boolean = true): QueryResult<ElectionResultsSummary> {
     const dataAccess = useDataAccess();
-    return useQuery([QUERIES.ELECTION_DESCRIPTION, electionId], () => dataAccess.getElectionResults(electionId), {
+    return useQuery([QUERIES.ELECTION_RESULTS, electionId], () => dataAccess.getElectionResults(electionId), {
         enabled: condition && electionId,
     });
 }
@@ -53,7 +53,7 @@ export function useSearchBallots(
 ): QueryResult<TrackedBallot[]> {
     const dataAccess = useDataAccess();
     return useQuery(
-        [QUERIES.ELECTION_DESCRIPTION, electionId, trackerQuery],
+        [QUERIES.SEARCH_BALLOTS, electionId, trackerQuery],
         () => dataAccess.searchBallots(electionId, trackerQuery),
         {
             // The search will stay in 'idle' state until this is satisfied

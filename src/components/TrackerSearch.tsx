@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Label } from '@fluentui/react';
 import { Theme, useTheme } from '@fluentui/react-theme-provider';
 import Autosuggest, { InputProps } from 'react-autosuggest';
-import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import take from 'lodash/take';
 
 import LargeCard from './LargeCard';
 import { TrackedBallot } from '../models/tracking';
-import TrackerDialog from './TrackerDialog';
+import TrackerDialog, { TrackerDialogStateOption } from './TrackerDialog';
 import { useSearch } from './TrackerSearch.hooks';
+
+const MAX_RESULTS_TO_SHOW = 5;
 
 export interface TrackerSearchProps {
     electionId: string;
@@ -70,13 +73,13 @@ const fromTheme = (theme: Theme) => {
 const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId }) => {
     const history = useHistory();
     const { path, url } = useRouteMatch();
-
     const theme = useTheme();
 
     // Track the raw input value from the user
     const [inputValue, setInputValue] = useState<string>('');
+    const [selectedBallot, setSelectedBallot] = useState<TrackedBallot | undefined>();
 
-    const { results, isLoading, search, clear } = useSearch(electionId);
+    const { results, search, clear } = useSearch(electionId);
 
     // Wire up the input element to the search input value
     const inputProps: InputProps<TrackedBallot> = {
@@ -93,7 +96,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                 <Label>Ballot Search</Label>
                 <Autosuggest
                     theme={fromTheme(theme)}
-                    suggestions={results}
+                    suggestions={take(results, MAX_RESULTS_TO_SHOW)}
                     onSuggestionsFetchRequested={({ value }) => {
                         search(value);
                     }}
@@ -101,7 +104,8 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                         setInputValue('');
                         clear();
                     }}
-                    onSuggestionSelected={(event, { suggestion }) => {
+                    onSuggestionSelected={(_event, { suggestion }) => {
+                        setSelectedBallot(suggestion);
                         const tracker = suggestion.tracker_words;
                         history.push(`${url}/track/${tracker}`);
                     }}
@@ -112,16 +116,7 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
                 <Switch>
                     <Route
                         path={`${path}/track/:tracker`}
-                        render={() => (
-                            <TrackerResults
-                                searchResults={results}
-                                updateQuery={(newQuery) => {
-                                    setInputValue(newQuery);
-                                    search(newQuery);
-                                }}
-                                isQuerying={isLoading}
-                            />
-                        )}
+                        render={() => <TrackerResults parentPath={url} selectedBallot={selectedBallot} />}
                     />
                 </Switch>
             </LargeCard>
@@ -130,35 +125,54 @@ const TrackerSearch: React.FunctionComponent<TrackerSearchProps> = ({ electionId
 };
 
 interface TrackerResultsProps {
-    isQuerying: boolean;
-    searchResults: TrackedBallot[];
-    updateQuery: (query: string) => void;
+    parentPath: string;
+    selectedBallot: TrackedBallot | undefined;
 }
 
-const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({ searchResults, isQuerying, updateQuery }) => {
+/**
+ * Displays a dialog of search results.
+ *
+ * If launched from a search, the selected ballot is provided directly.
+ * Otherwise, it will need to trigger a search for the ballot.
+ */
+const TrackerResults: React.FunctionComponent<TrackerResultsProps> = ({ selectedBallot, parentPath }) => {
     const history = useHistory();
-    const { params } = useRouteMatch<{ tracker: string }>();
-    const tracker = params.tracker;
+    const { electionId, tracker } = useParams<{ electionId: string; tracker: string }>();
 
-    const isMatch = (ballot: TrackedBallot) => ballot.tracker_words === tracker;
-    const existingBallot = searchResults?.find(isMatch);
-
-    const isLoading = !existingBallot && isQuerying;
+    const { results, search, isLoading } = useSearch(electionId, { debounceTimeInMs: 0 });
 
     useEffect(() => {
-        if (!existingBallot) {
-            updateQuery(tracker);
+        // If navigating directly to this route, we only have a tracker and must search for it
+        if (!selectedBallot) {
+            search(tracker);
         }
-    }, [tracker, existingBallot, updateQuery]);
+    }, [search, selectedBallot, tracker]);
+
+    // Check for a ballot to display
+    let existingBallot: TrackedBallot | undefined;
+    if (selectedBallot) {
+        existingBallot = selectedBallot;
+    } else {
+        existingBallot = results.find((ballot) => ballot.tracker_words === tracker);
+    }
+
+    const showLoading = !existingBallot && isLoading;
+    let trackerState: TrackerDialogStateOption;
+    if (showLoading) {
+        trackerState = 'loading';
+    } else if (existingBallot) {
+        trackerState = existingBallot.state === 'Cast' ? 'confirmed' : 'spoiled';
+    } else {
+        trackerState = 'unknown';
+    }
 
     return (
         <TrackerDialog
             hidden={false}
-            isLoading={isLoading}
             tracker={tracker}
-            confirmed={!!existingBallot}
+            trackerState={trackerState}
             onDismiss={() => {
-                history.replace('/');
+                history.replace(parentPath);
             }}
         />
     );

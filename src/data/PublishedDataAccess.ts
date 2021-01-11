@@ -1,5 +1,5 @@
 import path from 'path';
-import { ElectionDescription } from '../models/election';
+import { Election, ElectionDescription } from '../models/election';
 import {
     CiphertextAcceptedBallot,
     PlaintextTally,
@@ -14,8 +14,14 @@ import { DataAccess } from './DataAccess';
  * DataAccess implementation for static published ElectionGuard data.
  */
 export class PublishedDataAccess implements DataAccess {
-    getElectionDescription(): Promise<ElectionDescription> {
-        return loadPublishedFile('description.json');
+    async getElections(): Promise<Election[]> {
+        const electionDescription = await loadPublishedFile<ElectionDescription>('description.json');
+        const election: Election = {
+            id: electionDescription.election_scope_id,
+            election_description: electionDescription,
+            state: 'Published',
+        };
+        return [election];
     }
 
     async getElectionResults(electionId: string): Promise<ElectionResultsSummary> {

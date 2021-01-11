@@ -4,7 +4,7 @@ import mockDescription from './description.json';
 import mockTally from './tally.json';
 import mockBallots from './ballots.json';
 import { CiphertextAcceptedBallot, transformBallotForTracking, transformTallyResults } from '../models/electionguard';
-import { ElectionDescription } from '../models/election';
+import { Election } from '../models/election';
 import { ElectionResultsSummary } from '../models/tally';
 import { TrackedBallot } from '../models/tracking';
 
@@ -17,8 +17,13 @@ const trackedBallots = (mockBallots as CiphertextAcceptedBallot[]).map((ballot) 
  * DataAccess implementation for in-memory synchronous mocked data
  */
 export class MockDataAccess implements DataAccess {
-    async getElectionDescription(): Promise<ElectionDescription> {
-        return mockDescription as any;
+    async getElections(): Promise<Election[]> {
+        const mockElection: Election = {
+            id: mockDescription.election_scope_id,
+            election_description: mockDescription as any,
+            state: 'Published',
+        };
+        return [mockElection];
     }
 
     async getElectionResults(electionId: string): Promise<ElectionResultsSummary> {

@@ -1,74 +1,44 @@
 import React from 'react';
-import { Dialog, DialogType, IDialogContentProps } from 'office-ui-fabric-react/lib/Dialog';
+import { Dialog, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { useTheme } from '@fluentui/react-theme-provider';
 import StatusMessage from './StatusMessage';
-import { Spinner, SpinnerSize } from '@fluentui/react';
+import { IPalette, Spinner, SpinnerSize } from '@fluentui/react';
 
-// Text for Internationalization
-const confirmedTrackerTitle = 'Ballot Confirmed';
-const confirmedTrackerMessage =
-    'The following ballot was securely submitted and counted as part of the election tally.';
-const loadingTrackerTitle = 'Searching';
-const loadingTrackerMessage = '';
-const unknownTrackerTitle = 'Ballot Not Found';
-const unknownTrackerMessage = `
-    There was no record found of the following ballot and it is not part of the official tally. 
-    Please double check the spelling of the tracker and search again.
-`;
+export type TrackerDialogStateOption = 'loading' | 'spoiled' | 'confirmed' | 'unknown';
 
-// Icons
-const confirmedIcon = 'Completed';
-const loadingIcon = 'Search';
-const unknownIcon = 'Unknown';
-
-interface TrackerCodeProps {
-    tracker: string;
-    confirmed: boolean;
+interface TrackerDialogStateSettings {
+    icon: string;
+    color: keyof IPalette;
+    title: string;
+    message: string;
 }
 
-const TrackerCode: React.FunctionComponent<TrackerCodeProps> = ({ tracker, confirmed }) => {
-    const theme = useTheme();
-    return (
-        <div
-            style={{
-                display: 'flex',
-                borderColor: confirmed ? theme.palette.green : theme.palette.themePrimary,
-                borderStyle: 'solid',
-                borderWidth: 2,
-                padding: 8,
-            }}
-        >
-            {tracker}
-        </div>
-    );
-};
-
-const dialogStyles = { main: { maxWidth: 450 } };
-const confirmedDialogContentProps: IDialogContentProps = {
-    type: DialogType.largeHeader,
-    title: <StatusMessage icon={confirmedIcon} colorName="green" message={confirmedTrackerTitle} />,
-    subText: confirmedTrackerMessage,
-    styles: ({ theme }) => ({
-        content: { borderColor: theme.palette.green },
-    }),
-};
-
-const unknownDialogContentProps: IDialogContentProps = {
-    type: DialogType.largeHeader,
-    title: <StatusMessage icon={unknownIcon} colorName="themePrimary" message={unknownTrackerTitle} />,
-    subText: unknownTrackerMessage,
-    styles: ({ theme }) => ({
-        content: { borderColor: theme.palette.themePrimary },
-    }),
-};
-
-const loadingDialogContentProps: IDialogContentProps = {
-    type: DialogType.largeHeader,
-    title: <StatusMessage icon={loadingIcon} colorName="neutralPrimary" message={loadingTrackerTitle} />,
-    subText: loadingTrackerMessage,
-    styles: ({ theme }) => ({
-        content: { borderColor: theme.palette.neutralLight },
-    }),
+const states: { [state in TrackerDialogStateOption]: TrackerDialogStateSettings } = {
+    loading: {
+        icon: 'Search',
+        color: 'neutralPrimary',
+        title: 'Searching',
+        message: '',
+    },
+    confirmed: {
+        icon: 'Completed',
+        color: 'green',
+        title: 'Ballot Confirmed',
+        message: 'The following ballot was securely submitted and counted as part of the election tally.',
+    },
+    spoiled: {
+        icon: 'Error',
+        color: 'redDark',
+        title: 'Ballot Spoiled',
+        message: 'The following ballot was not included in the election tally.',
+    },
+    unknown: {
+        icon: 'Unknown',
+        color: 'themePrimary',
+        title: 'Ballot Not Found',
+        message: `There was no record found of the following ballot and it is not part of the official tally. 
+Please double check the spelling of the tracker and search again.`,
+    },
 };
 
 /**
@@ -83,10 +53,8 @@ export interface TrackerDialogProps {
     onDismissed?: () => void;
     /** Tracker code */
     tracker: string;
-    /** Confirmation status of tracker */
-    confirmed: boolean;
-    /** The application is looking for the tracker */
-    isLoading?: boolean;
+    /** The visual state of the dialog */
+    trackerState: TrackerDialogStateOption;
 }
 
 /**
@@ -94,11 +62,10 @@ export interface TrackerDialogProps {
  */
 const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
     hidden,
-    isLoading = false,
     onDismiss,
     onDismissed,
     tracker,
-    confirmed,
+    trackerState,
 }) => {
     const modalProps = React.useMemo(
         () => ({
@@ -109,17 +76,50 @@ const TrackerDialog: React.FunctionComponent<TrackerDialogProps> = ({
         [onDismissed]
     );
 
-    const dialogContentProps = isLoading
-        ? loadingDialogContentProps
-        : confirmed
-        ? confirmedDialogContentProps
-        : unknownDialogContentProps;
+    const { color, icon, message, title } = states[trackerState];
+    const isLoading = trackerState === 'loading';
 
     return (
-        <Dialog hidden={hidden} onDismiss={onDismiss} dialogContentProps={dialogContentProps} modalProps={modalProps}>
-            {isLoading ? <Spinner size={SpinnerSize.large} /> : <TrackerCode tracker={tracker} confirmed={confirmed} />}
+        <Dialog
+            hidden={hidden}
+            onDismiss={onDismiss}
+            dialogContentProps={{
+                type: DialogType.largeHeader,
+                title: <StatusMessage icon={icon} colorName={color} message={title} />,
+                subText: message,
+                styles: ({ theme }) => ({
+                    content: { borderColor: theme.palette[color] },
+                }),
+            }}
+            modalProps={modalProps}
+        >
+            {isLoading ? <Spinner size={SpinnerSize.large} /> : <TrackerCode tracker={tracker} color={color} />}
         </Dialog>
     );
 };
+
+interface TrackerCodeProps {
+    tracker: string;
+    color: keyof IPalette;
+}
+
+const TrackerCode: React.FunctionComponent<TrackerCodeProps> = ({ tracker, color }) => {
+    const theme = useTheme();
+    return (
+        <div
+            style={{
+                display: 'flex',
+                borderColor: theme.palette[color],
+                borderStyle: 'solid',
+                borderWidth: 2,
+                padding: 8,
+            }}
+        >
+            {tracker}
+        </div>
+    );
+};
+
+const dialogStyles = { main: { maxWidth: 450 } };
 
 export default TrackerDialog;
