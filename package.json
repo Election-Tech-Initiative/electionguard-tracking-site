@@ -21,7 +21,7 @@
         "@uifabric/icons": "^7.5.8",
         "@uifabric/react-cards": "^0.113.6",
         "lodash": "^4.17.20",
-        "moment": "^2.29.0",
+        "moment": "^2.29.2",
         "normalize.css": "^8.0.1",
         "react": "^16.13.1",
         "react-autosuggest": "^10.0.2",
